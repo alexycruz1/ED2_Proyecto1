@@ -343,7 +343,6 @@ public class ElCaro extends javax.swing.JFrame {
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
         int RevisarCampos = 0;
-        int Remover = 0;
         DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
         Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
         ArrayList<String> Campos = new ArrayList();
@@ -354,9 +353,6 @@ public class ElCaro extends javax.swing.JFrame {
             Campos.add(Campo);
         }
         for (int i = 0; i < Campos.size(); i++) {
-            if (Remover == 2) {
-                Remover = 0;
-            }
             if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
                 RevisarCampos++;
             } else if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
@@ -369,10 +365,10 @@ public class ElCaro extends javax.swing.JFrame {
                 System.out.println(fijo_fijo.TamañoCampo());
                 if (Campos.get(i).length() < Integer.parseInt(fijo_fijo.TamañoCampo())) {
                     Row[i] = Campos.get(i);
-                    for (int j = 0; j < Integer.parseInt(fijo_fijo.TamañoCampo())-Campos.get(i).length(); j++) {
-                       Row[i] = Row[i] + "-"; 
+                    for (int j = 0; j < Integer.parseInt(fijo_fijo.TamañoCampo()) - Campos.get(i).length(); j++) {
+                        Row[i] = Row[i] + "-";
                     }
-                }else{
+                } else {
                     Row[i] = Campos.get(i);
                 }
                 File Archivo = null;
@@ -403,13 +399,45 @@ public class ElCaro extends javax.swing.JFrame {
         DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
 
         String Campo = ModeloTabla.getColumnName(jt_ARLF_ModificarTabla.getSelectedColumn());
-        int PosicionBorrar = 0;
 
         String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
                 JOptionPane.INFORMATION_MESSAGE);
 
-        jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
-                jt_ARLF_ModificarTabla.getSelectedColumn());
+        if (ModificarCampo.length() < Integer.parseInt(fijo_fijo.TamañoCampo())) {
+            jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
+                    jt_ARLF_ModificarTabla.getSelectedColumn());
+
+            File Archivo = null;
+            Archivo = new File(fijo_fijo.getDireccion());
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                String TamañoCampo = "";
+                int ContadorDelimitador = 0;
+                for (int i = 0; i < RAF.length(); i++) {
+                    char TamañoCampoTemp = (char) RAF.readByte();
+                    if (TamañoCampoTemp != ';') {
+                        if (ContadorDelimitador == 4) {
+                            int Posicion = (jt_ARLF_ModificarTabla.getSelectedRow()*
+                                    Integer.parseInt(fijo_fijo.NumeroCampos())*
+                                    Integer.parseInt(fijo_fijo.TamañoCampo())) + 
+                                    (jt_ARLF_ModificarTabla.getSelectedColumn()*
+                                    Integer.parseInt(fijo_fijo.TamañoCampo()));
+                            RAF.seek(i + Posicion);
+                            RAF.writeBytes(ModificarCampo);
+                        }
+                    } else {
+                        ContadorDelimitador++;
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "No se pudo modificar campo");
+        }
     }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
 
     /**
