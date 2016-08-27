@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -282,9 +283,10 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        if (ARLF < 1) {
-            ARLF++;
+        if (contador_arlf < 1) {
+            contador_arlf++;
             String Direccion = nombre_arlf.getText() + ".txt";
+            fijo_fijo.setDireccion(Direccion); 
             File Archivo = null;
             Archivo = new File(Direccion);
             RandomAccessFile RAF = null;
@@ -296,8 +298,6 @@ public class ElCaro extends javax.swing.JFrame {
                 RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
                 RAF.seek(RAF.length());
                 RAF.writeBytes(";");
-                RAF.seek(0);
-                RAF.writeBytes(" ");
                 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
@@ -350,13 +350,22 @@ public class ElCaro extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
         Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
-
         for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
             String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
                     jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
 
             Row[i] = Campo;
-            
+            File Archivo = null;
+            Archivo = new File(fijo_fijo.getDireccion());
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                fijo_fijo.Agregar(Campo,RAF.length());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
         ModeloTabla.addRow(Row);
@@ -440,5 +449,6 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JTable jt_ARLF_ModificarTabla;
     private javax.swing.JTextField nombre_arlf;
     // End of variables declaration//GEN-END:variables
-int ARLF = 0;
+int contador_arlf = 0;
+ARLF fijo_fijo = new ARLF();
 }
