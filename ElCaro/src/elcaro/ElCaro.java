@@ -74,6 +74,7 @@ public class ElCaro extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         nombre_arlf = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
         jpm_Menu1 = new javax.swing.JPopupMenu();
         jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
@@ -191,6 +192,19 @@ public class ElCaro extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("ARLF", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 620, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 609, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("ARLV", jPanel2);
 
         javax.swing.GroupLayout jd_CrearLayout = new javax.swing.GroupLayout(jd_Crear.getContentPane());
         jd_Crear.getContentPane().setLayout(jd_CrearLayout);
@@ -493,6 +507,7 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
