@@ -5,6 +5,18 @@
  */
 package elcaro;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 /**
  *
  * @author Alexy Cruz
@@ -15,7 +27,26 @@ public class ElCaro extends javax.swing.JFrame {
      * Creates new form ElCaro
      */
     public ElCaro() {
-        initComponents();
+
+        try {
+            initComponents();
+            String Direccion = "./nuevo.txt";
+            File Archivo = null;
+            Archivo = new File(Direccion);
+            try {
+                RandomAccessFile RAF = new RandomAccessFile(Archivo, "rw");
+                RAF.writeBytes("mi mama me mima");
+
+                RAF.seek(5);
+                String Nueva = "Mi mama no me mima";
+                RAF.writeBytes(Nueva);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -27,21 +58,284 @@ public class ElCaro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jd_Crear = new javax.swing.JDialog();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jsp_ARLF_NumeroCampos = new javax.swing.JSpinner();
+        jsp_ARLF_LongitudCampos = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jt_ARLF_ModificarTabla = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
+        jpm_Menu1 = new javax.swing.JPopupMenu();
+        jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+
+        jLabel1.setText("Numero de campos");
+
+        jLabel2.setText("Longitud de campos");
+
+        jLabel3.setText("CREAR REGISTROS");
+
+        jButton5.setText("Crear Registro");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+
+        jt_ARLF_ModificarTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jt_ARLF_ModificarTabla.setCellSelectionEnabled(true);
+        jt_ARLF_ModificarTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_ARLF_ModificarTablaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jt_ARLF_ModificarTabla);
+
+        jButton6.setText("AGREGAR CAMPO");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(180, 180, 180)
+                                .addComponent(jLabel3))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(22, 22, 22)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jsp_ARLF_NumeroCampos)
+                                    .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(94, 94, 94)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jsp_ARLF_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        jTabbedPane1.addTab("ARLF", jPanel1);
+
+        javax.swing.GroupLayout jd_CrearLayout = new javax.swing.GroupLayout(jd_Crear.getContentPane());
+        jd_Crear.getContentPane().setLayout(jd_CrearLayout);
+        jd_CrearLayout.setHorizontalGroup(
+            jd_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_CrearLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+        jd_CrearLayout.setVerticalGroup(
+            jd_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_CrearLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+        );
+
+        jpm1_Menu1_Modificar.setText("Modificar");
+        jpm1_Menu1_Modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpm1_Menu1_ModificarMouseClicked(evt);
+            }
+        });
+        jpm1_Menu1_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpm1_Menu1_ModificarActionPerformed(evt);
+            }
+        });
+        jpm_Menu1.add(jpm1_Menu1_Modificar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("Crear");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("Modificar");
+
+        jButton3.setText("Eliminar");
+
+        jButton4.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(326, 326, 326))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        jd_Crear.setModal(true);
+        jd_Crear.pack();
+        jd_Crear.setLocationRelativeTo(this);
+        jd_Crear.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        if (ARLF < 1) {
+            DefaultTableModel Modelo = new DefaultTableModel();
+            int NumeroCampos = (int) (jsp_ARLF_NumeroCampos.getValue());
+            int LongitudCampos = (int) (jsp_ARLF_LongitudCampos.getValue());
+
+            for (int i = 0; i < NumeroCampos; i++) {
+                String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
+                        "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
+                Modelo.addColumn(NombreCampo);
+            }
+
+            jt_ARLF_ModificarTabla.setModel(Modelo);
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jt_ARLF_ModificarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLF_ModificarTablaMouseClicked
+        // TODO add your handling code here:
+        int Row = jt_ARLF_ModificarTabla.getSelectedRow();
+        int Column = jt_ARLF_ModificarTabla.getSelectedColumn();
+
+        if (evt.isMetaDown() && jt_ARLF_ModificarTabla.getSelectedRow() != -1) {
+
+            DefaultTableModel Modelo = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+
+            jpm_Menu1.show(evt.getComponent(), evt.getX(),
+                    evt.getY());
+        }
+
+        System.out.println(Row + " " + Column);
+    }//GEN-LAST:event_jt_ARLF_ModificarTablaMouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+        Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
+
+        for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
+            String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
+                    jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+
+            Row[i] = Campo;
+        }
+        ModeloTabla.addRow(Row);
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jpm1_Menu1_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+
+        String Campo = ModeloTabla.getColumnName(jt_ARLF_ModificarTabla.getSelectedColumn());
+        int PosicionBorrar = 0;
+
+        String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
+                JOptionPane.INFORMATION_MESSAGE);
+
+        
+        jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(), 
+                jt_ARLF_ModificarTabla.getSelectedColumn());
+    }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
+
+    private void jpm1_Menu1_ModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarMouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jpm1_Menu1_ModificarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +373,25 @@ public class ElCaro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JDialog jd_Crear;
+    private javax.swing.JMenuItem jpm1_Menu1_Modificar;
+    private javax.swing.JPopupMenu jpm_Menu1;
+    private javax.swing.JSpinner jsp_ARLF_LongitudCampos;
+    private javax.swing.JSpinner jsp_ARLF_NumeroCampos;
+    private javax.swing.JTable jt_ARLF_ModificarTabla;
     // End of variables declaration//GEN-END:variables
+int ARLF = 0;
 }
