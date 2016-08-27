@@ -39,7 +39,7 @@ public class ARLF {
 
     public void Agregar(String campo, long posicion) {
         File Archivo = null;
-        Archivo = new File(Direccion);
+        Archivo = new File(Direccion );
         RandomAccessFile RAF = null;
         try {
             RAF = new RandomAccessFile(Archivo, "rw");
@@ -59,7 +59,7 @@ public class ARLF {
 
     public void Modificar(String Campo, long Posicion) {
         File Archivo = null;
-        Archivo = new File(Direccion);
+        Archivo = new File(Direccion );
         RandomAccessFile RAF = null;
         try {
             RAF = new RandomAccessFile(Archivo, "rw");
@@ -76,7 +76,7 @@ public class ARLF {
         String TamañoCampo = "";
         int ContadorDelimitador = 0;
         File Archivo = null;
-        Archivo = new File(Direccion);
+        Archivo = new File(Direccion );
         RandomAccessFile RAF = null;
         try {
             RAF = new RandomAccessFile(Archivo, "rw");

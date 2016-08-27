@@ -78,6 +78,7 @@ public class ElCaro extends javax.swing.JFrame {
         jpm_Menu1 = new javax.swing.JPopupMenu();
         jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
         seleccionar_r = new javax.swing.JMenuItem();
+        borrar_registro = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -240,6 +241,15 @@ public class ElCaro extends javax.swing.JFrame {
         });
         jpm_Menu1.add(seleccionar_r);
 
+        borrar_registro.setText("Borrar Registro");
+        borrar_registro.setEnabled(false);
+        borrar_registro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrar_registroActionPerformed(evt);
+            }
+        });
+        jpm_Menu1.add(borrar_registro);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Crear");
@@ -303,14 +313,20 @@ public class ElCaro extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (contador_arlf < 1) {
             contador_arlf++;
-            String Direccion = nombre_arlf.getText() + ".txt";
+            String Direccion = nombre_arlf.getText()+".txt";
+            String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" +".txt";
             fijo_fijo.setDireccion(Direccion);
-            File Archivo = null;
+            System.out.println(fijo_fijo.getDireccion());
+            File Archivo = null, Archivo_b=null;
             Archivo = new File(Direccion);
+            Archivo_b = new File(Borrado);
             RandomAccessFile RAF = null;
+            RandomAccessFile RAF2 = null;
             try {
                 RAF = new RandomAccessFile(Archivo, "rw");
+                RAF2 = new RandomAccessFile(Archivo_b, "rw");
                 RAF.writeBytes(jsp_ARLF_NumeroCampos.getValue().toString());
+                RAF2.writeBytes("$");
                 RAF.seek(RAF.length());
                 RAF.writeBytes(";");
                 RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
@@ -472,9 +488,40 @@ public class ElCaro extends javax.swing.JFrame {
     private void seleccionar_rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionar_rActionPerformed
         //jt_ARLF_ModificarTabla.setCellSelectionEnabled(false);
         jt_ARLF_ModificarTabla.setColumnSelectionInterval(0,Integer.parseInt(fijo_fijo.NumeroCampos())-1);
-        
+        borrar_registro.setEnabled(true);
         //jt_ARLF_ModificarTabla.clearSelection();
     }//GEN-LAST:event_seleccionar_rActionPerformed
+
+    private void borrar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar_registroActionPerformed
+        if (borrar_registro.isEnabled()) {
+            int seleccionado = jt_ARLF_ModificarTabla.getSelectedRow();
+            fijo_fijo.getBorrados().push(seleccionado);
+            String direccion="";
+            direccion = fijo_fijo.getDireccion().substring(0,fijo_fijo.getDireccion().length()-4);
+            System.out.println(direccion);
+            String Borrado = "./borrados/" + direccion + "borr" +".txt";
+            System.out.println(Borrado);
+            File Archivo_b=null;
+            
+            Archivo_b = new File(Borrado);
+            RandomAccessFile RAF2 = null;
+            try {
+                RAF2 = new RandomAccessFile(Archivo_b, "rw");
+                RAF2.seek(0);
+                if((char)RAF2.readByte()== '$') {
+                    RAF2.seek(RAF2.length()-1);
+                    RAF2.writeBytes(Integer.toString(seleccionado)+";");
+                }else{
+                    RAF2.writeBytes(Integer.toString(seleccionado)+";");
+                }
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_borrar_registroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,6 +559,7 @@ public class ElCaro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem borrar_registro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
