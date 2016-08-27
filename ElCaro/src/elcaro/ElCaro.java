@@ -472,6 +472,8 @@ public class ElCaro extends javax.swing.JFrame {
     private void seleccionar_rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionar_rActionPerformed
         //jt_ARLF_ModificarTabla.setCellSelectionEnabled(false);
         jt_ARLF_ModificarTabla.setColumnSelectionInterval(0,Integer.parseInt(fijo_fijo.NumeroCampos())-1);
+        
+        //jt_ARLF_ModificarTabla.clearSelection();
     }//GEN-LAST:event_seleccionar_rActionPerformed
 
     /**
