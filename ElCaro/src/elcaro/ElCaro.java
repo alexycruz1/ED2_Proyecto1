@@ -402,8 +402,12 @@ public class ElCaro extends javax.swing.JFrame {
 
         String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
                 JOptionPane.INFORMATION_MESSAGE);
+        int Concatenar = Integer.parseInt(fijo_fijo.TamañoCampo()) - ModificarCampo.length();
+        for (int j = 0; j < Concatenar; j++) {
+            ModificarCampo += "-";
+        }
 
-        if (ModificarCampo.length() < Integer.parseInt(fijo_fijo.TamañoCampo())) {
+        if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
             jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
                     jt_ARLF_ModificarTabla.getSelectedColumn());
 
@@ -415,16 +419,18 @@ public class ElCaro extends javax.swing.JFrame {
                 String TamañoCampo = "";
                 int ContadorDelimitador = 0;
                 for (int i = 0; i < RAF.length(); i++) {
+                    RAF.seek(i);
                     char TamañoCampoTemp = (char) RAF.readByte();
                     if (TamañoCampoTemp != ';') {
                         if (ContadorDelimitador == 4) {
-                            int Posicion = (jt_ARLF_ModificarTabla.getSelectedRow()*
-                                    Integer.parseInt(fijo_fijo.NumeroCampos())*
-                                    Integer.parseInt(fijo_fijo.TamañoCampo())) + 
-                                    (jt_ARLF_ModificarTabla.getSelectedColumn()*
-                                    Integer.parseInt(fijo_fijo.TamañoCampo()));
+                            int Posicion = (jt_ARLF_ModificarTabla.getSelectedRow()
+                                    * Integer.parseInt(fijo_fijo.NumeroCampos())
+                                    * Integer.parseInt(fijo_fijo.TamañoCampo()))
+                                    + (jt_ARLF_ModificarTabla.getSelectedColumn()
+                                    * Integer.parseInt(fijo_fijo.TamañoCampo()));
                             RAF.seek(i + Posicion);
                             RAF.writeBytes(ModificarCampo);
+                            ContadorDelimitador++;
                         }
                     } else {
                         ContadorDelimitador++;
