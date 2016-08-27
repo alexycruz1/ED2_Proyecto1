@@ -71,6 +71,8 @@ public class ElCaro extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jt_ARLF_ModificarTabla = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        nombre_arlf = new javax.swing.JTextField();
         jpm_Menu1 = new javax.swing.JPopupMenu();
         jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
@@ -82,9 +84,9 @@ public class ElCaro extends javax.swing.JFrame {
 
         jLabel2.setText("Longitud de campos");
 
-        jLabel3.setText("CREAR REGISTROS");
+        jLabel3.setText("CREAR TABLA");
 
-        jButton5.setText("Crear Registro");
+        jButton5.setText("Crear Tabla");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
@@ -117,6 +119,8 @@ public class ElCaro extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Nombre");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -136,12 +140,15 @@ public class ElCaro extends javax.swing.JFrame {
                                 .addGap(32, 32, 32)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jsp_ARLF_NumeroCampos)
-                                    .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(94, 94, 94)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jsp_ARLF_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(nombre_arlf, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -157,19 +164,23 @@ public class ElCaro extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(nombre_arlf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jsp_ARLF_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -272,17 +283,50 @@ public class ElCaro extends javax.swing.JFrame {
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
         if (ARLF < 1) {
+            ARLF++;
+            String Direccion = nombre_arlf.getText() + ".txt";
+            File Archivo = null;
+            Archivo = new File(Direccion);
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF.writeBytes(jsp_ARLF_NumeroCampos.getValue().toString());
+                RAF.seek(RAF.length());
+                RAF.writeBytes(";");
+                RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
+                RAF.seek(RAF.length());
+                RAF.writeBytes(";");
+                RAF.seek(0);
+                RAF.writeBytes(" ");
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             DefaultTableModel Modelo = new DefaultTableModel();
             int NumeroCampos = (int) (jsp_ARLF_NumeroCampos.getValue());
-            int LongitudCampos = (int) (jsp_ARLF_LongitudCampos.getValue());
 
             for (int i = 0; i < NumeroCampos; i++) {
                 String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
                         "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
                 Modelo.addColumn(NombreCampo);
+                try {
+                    RAF.seek(RAF.length());
+                    RAF.writeBytes(NombreCampo);
+                    RAF.writeBytes(";");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            
 
             jt_ARLF_ModificarTabla.setModel(Modelo);
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Ya se ha creado una tabla!");
         }
     }//GEN-LAST:event_jButton5MouseClicked
 
@@ -312,6 +356,8 @@ public class ElCaro extends javax.swing.JFrame {
                     jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
 
             Row[i] = Campo;
+            
+            
         }
         ModeloTabla.addRow(Row);
     }//GEN-LAST:event_jButton6MouseClicked
@@ -326,8 +372,7 @@ public class ElCaro extends javax.swing.JFrame {
         String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
                 JOptionPane.INFORMATION_MESSAGE);
 
-        
-        jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(), 
+        jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
                 jt_ARLF_ModificarTabla.getSelectedColumn());
     }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
 
@@ -382,6 +427,7 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -392,6 +438,7 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JSpinner jsp_ARLF_LongitudCampos;
     private javax.swing.JSpinner jsp_ARLF_NumeroCampos;
     private javax.swing.JTable jt_ARLF_ModificarTabla;
+    private javax.swing.JTextField nombre_arlf;
     // End of variables declaration//GEN-END:variables
 int ARLF = 0;
 }
