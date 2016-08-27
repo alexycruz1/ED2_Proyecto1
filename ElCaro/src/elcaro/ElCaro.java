@@ -28,9 +28,9 @@ public class ElCaro extends javax.swing.JFrame {
      * Creates new form ElCaro
      */
     public ElCaro() {
-
-        try {
-            initComponents();
+        initComponents();
+        /*try {
+            
             String Direccion = "./nuevo.txt";
             File Archivo = null;
             Archivo = new File(Direccion);
@@ -47,7 +47,7 @@ public class ElCaro extends javax.swing.JFrame {
             }
         } catch (IOException ex) {
             Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     /**
@@ -210,11 +210,6 @@ public class ElCaro extends javax.swing.JFrame {
         );
 
         jpm1_Menu1_Modificar.setText("Modificar");
-        jpm1_Menu1_Modificar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpm1_Menu1_ModificarMouseClicked(evt);
-            }
-        });
         jpm1_Menu1_Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jpm1_Menu1_ModificarActionPerformed(evt);
@@ -286,7 +281,7 @@ public class ElCaro extends javax.swing.JFrame {
         if (contador_arlf < 1) {
             contador_arlf++;
             String Direccion = nombre_arlf.getText() + ".txt";
-            fijo_fijo.setDireccion(Direccion); 
+            fijo_fijo.setDireccion(Direccion);
             File Archivo = null;
             Archivo = new File(Direccion);
             RandomAccessFile RAF = null;
@@ -298,7 +293,7 @@ public class ElCaro extends javax.swing.JFrame {
                 RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
                 RAF.seek(RAF.length());
                 RAF.writeBytes(";");
-                
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -322,7 +317,6 @@ public class ElCaro extends javax.swing.JFrame {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
 
             jt_ARLF_ModificarTabla.setModel(Modelo);
         } else {
@@ -348,27 +342,52 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
+        int RevisarCampos = 0;
+        int Remover = 0;
         DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
         Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
+        ArrayList<String> Campos = new ArrayList();
         for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
             String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
                     jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
 
-            Row[i] = Campo;
-            File Archivo = null;
-            Archivo = new File(fijo_fijo.getDireccion());
-            RandomAccessFile RAF = null;
-            try {
-                RAF = new RandomAccessFile(Archivo, "rw");
-                fijo_fijo.Agregar(Campo,RAF.length());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            Campos.add(Campo);
         }
-        ModeloTabla.addRow(Row);
+        for (int i = 0; i < Campos.size(); i++) {
+            if (Remover == 2) {
+                Remover = 0;
+            }
+            if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                RevisarCampos++;
+            } else if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                RevisarCampos++;
+            }
+        }
+
+        if (RevisarCampos == 0) {
+            for (int i = 0; i < Campos.size(); i++) {
+                Row[i] = Campos.get(i);
+                File Archivo = null;
+                Archivo = new File(fijo_fijo.getDireccion());
+                RandomAccessFile RAF = null;
+                try {
+                    RAF = new RandomAccessFile(Archivo, "rw");
+                    fijo_fijo.Agregar(Campos.get(i), RAF.length());
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (i == Campos.size() - 1) {
+                    ModeloTabla.addRow(Row);
+                }
+
+            }
+            JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+        }
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jpm1_Menu1_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarActionPerformed
@@ -384,12 +403,6 @@ public class ElCaro extends javax.swing.JFrame {
         jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
                 jt_ARLF_ModificarTabla.getSelectedColumn());
     }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
-
-    private void jpm1_Menu1_ModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarMouseClicked
-        // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_jpm1_Menu1_ModificarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -450,5 +463,5 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JTextField nombre_arlf;
     // End of variables declaration//GEN-END:variables
 int contador_arlf = 0;
-ARLF fijo_fijo = new ARLF();
+    ARLF fijo_fijo = new ARLF();
 }
