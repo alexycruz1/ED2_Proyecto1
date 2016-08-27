@@ -77,6 +77,7 @@ public class ElCaro extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jpm_Menu1 = new javax.swing.JPopupMenu();
         jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
+        seleccionar_r = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -230,6 +231,14 @@ public class ElCaro extends javax.swing.JFrame {
             }
         });
         jpm_Menu1.add(jpm1_Menu1_Modificar);
+
+        seleccionar_r.setText("Seleccionar Registro");
+        seleccionar_r.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionar_rActionPerformed(evt);
+            }
+        });
+        jpm_Menu1.add(seleccionar_r);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -460,6 +469,11 @@ public class ElCaro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
 
+    private void seleccionar_rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionar_rActionPerformed
+        //jt_ARLF_ModificarTabla.setCellSelectionEnabled(false);
+        jt_ARLF_ModificarTabla.setColumnSelectionInterval(0,Integer.parseInt(fijo_fijo.NumeroCampos())-1);
+    }//GEN-LAST:event_seleccionar_rActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -518,6 +532,7 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JSpinner jsp_ARLF_NumeroCampos;
     private javax.swing.JTable jt_ARLF_ModificarTabla;
     private javax.swing.JTextField nombre_arlf;
+    private javax.swing.JMenuItem seleccionar_r;
     // End of variables declaration//GEN-END:variables
 int contador_arlf = 0;
     ARLF fijo_fijo = new ARLF();
