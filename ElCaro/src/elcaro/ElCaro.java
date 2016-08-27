@@ -366,13 +366,21 @@ public class ElCaro extends javax.swing.JFrame {
 
         if (RevisarCampos == 0) {
             for (int i = 0; i < Campos.size(); i++) {
-                Row[i] = Campos.get(i);
+                System.out.println(fijo_fijo.TamañoCampo());
+                if (Campos.get(i).length() < Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                    Row[i] = Campos.get(i);
+                    for (int j = 0; j < Integer.parseInt(fijo_fijo.TamañoCampo())-Campos.get(i).length(); j++) {
+                       Row[i] = Row[i] + "-"; 
+                    }
+                }else{
+                    Row[i] = Campos.get(i);
+                }
                 File Archivo = null;
                 Archivo = new File(fijo_fijo.getDireccion());
                 RandomAccessFile RAF = null;
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
-                    fijo_fijo.Agregar(Campos.get(i), RAF.length());
+                    fijo_fijo.Agregar(Row[i].toString(), RAF.length());
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {

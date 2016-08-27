@@ -45,7 +45,7 @@ public class ARLF {
             String TamañoCampoTemp = this.TamañoCampo();
             int TamañoCampo = Integer.parseInt(TamañoCampoTemp);
             
-            if (campo.length() < TamañoCampo) {
+            if (campo.length() <= TamañoCampo) {
                RAF.writeBytes(campo); 
             }
         } catch (FileNotFoundException ex) {
