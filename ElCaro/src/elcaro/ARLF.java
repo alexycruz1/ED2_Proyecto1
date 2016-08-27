@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 public class ARLF {
 
     String Direccion;
+    Stack<Integer> Borrados = new Stack();
 
     public ARLF() {
     }
@@ -124,5 +126,13 @@ public class ARLF {
             Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
         }
         return TamañoCampo;
+    }
+
+    public Stack<Integer> getBorrados() {
+        return Borrados;
+    }
+
+    public void setBorrados(Stack<Integer> Borrados) {
+        this.Borrados = Borrados;
     }
 }
