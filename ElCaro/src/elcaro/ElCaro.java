@@ -586,22 +586,22 @@ public class ElCaro extends javax.swing.JFrame {
                 File Archivo2 = null;
                 Archivo = new File("./borrados/" + fijo_fijo.Direccion.substring(0, fijo_fijo.Direccion.length() - 4) + "borr.txt");
                 Archivo2 = new File(fijo_fijo.Direccion);
-                RandomAccessFile RAF = null,RAF2=null;
-                int cont1=0;
-                
-                long temp = posicion*Integer.parseInt(fijo_fijo.TamañoCampo())*Integer.parseInt(fijo_fijo.NumeroCampos());
-                
+                RandomAccessFile RAF = null, RAF2 = null;
+                int cont1 = 0;
+
+                long temp = posicion * Integer.parseInt(fijo_fijo.TamañoCampo()) * Integer.parseInt(fijo_fijo.NumeroCampos());
+
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
                     RAF2 = new RandomAccessFile(Archivo2, "rw");
                     for (int i = 0; i < RAF2.length(); i++) {
                         RAF2.seek(i);
-                        if ((char)RAF2.readByte() == ';') {
+                        if ((char) RAF2.readByte() == ';') {
                             cont1++;
                         }
-                        if (cont1 == 2+Integer.parseInt(fijo_fijo.NumeroCampos())) {
+                        if (cont1 == 2 + Integer.parseInt(fijo_fijo.NumeroCampos())) {
                             System.out.println(i);
-                            RAF2.seek(i+temp+1);
+                            RAF2.seek(i + temp + 1);
                             break;
                         }
                     }
@@ -624,7 +624,7 @@ public class ElCaro extends javax.swing.JFrame {
                 for (int i = 0; i < Integer.parseInt(fijo_fijo.NumeroCampos()); i++) {
                     jt_ARLF_ModificarTabla.setValueAt(row[i], posicion, i);
                 }
-                
+
                 JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
             } else {
                 fijo_fijo.Borrados.add(posicion);
@@ -741,6 +741,7 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jb_Cargar_tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Cargar_tabla_FijoMouseClicked
         // TODO add your handling code here:
+
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Elija el archivo de texto");
 
@@ -750,27 +751,26 @@ public class ElCaro extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(Archivo_Referencia);
         int returnValue = fileChooser.showOpenDialog(jd_Crear);
 
-        if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")) {
+        if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")
+                && fijo_fijo.IsFija(fileChooser.getSelectedFile())) {
             File selectedFile = fileChooser.getSelectedFile();
 
             String DireccionArchivo = selectedFile.getAbsolutePath();
             String NombreArchivoBorrado = selectedFile.getName();
             NombreArchivoBorrado = NombreArchivoBorrado.substring(0, NombreArchivoBorrado.length() - 4);
-            
+
             String DireccionBorrado = "./borrados/" + NombreArchivoBorrado + "borr" + ".txt";
-            
+
             DefaultTableModel Modelo = new DefaultTableModel();
             fijo_fijo.setDireccion(DireccionArchivo);
             DefaultTableModel ModeloTabla = fijo_fijo.CargarArchivoFijo(DireccionArchivo, DireccionBorrado, Modelo);
             jt_ARLF_ModificarTabla.setModel(Modelo);
             Modelo.removeRow(Modelo.getRowCount() - 1);
-            
             String NombreArchivoFijo = selectedFile.getName();
             fijo_fijo.setDireccion(NombreArchivoFijo);
-            
-            
+
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto");
+            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud fija");
         }
     }//GEN-LAST:event_jb_Cargar_tabla_FijoMouseClicked
 
