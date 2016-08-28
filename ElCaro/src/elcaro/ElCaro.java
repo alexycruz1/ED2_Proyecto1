@@ -542,7 +542,6 @@ public class ElCaro extends javax.swing.JFrame {
                 jt_ARLF_ModificarTabla.setValueAt(" ", jt_ARLF_ModificarTabla.getSelectedRow(),
                         jt_ARLF_ModificarTabla.getSelectedColumn() + i);
             }
-
         }
     }//GEN-LAST:event_borrar_registroActionPerformed
 

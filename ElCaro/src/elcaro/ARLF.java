@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -163,8 +164,9 @@ public class ARLF {
     }
     
     public void CargarArchivoFijo(String DireccionArchivo, String DireccionPila){
-        String TamañoCampo = "";
+        String Indice_Borrado = "";
         int ContadorDelimitador = 0;
+        ArrayList BorradosTemp = new ArrayList();
         File Archivo = null;
         Archivo = new File(Direccion);
         RandomAccessFile RAF = null;
@@ -173,13 +175,13 @@ public class ARLF {
             RAF = new RandomAccessFile(Archivo, "rw");
             for (int i = 0; i < RAF.length(); i++) {
                 RAF.seek(i);
-                char TamañoCampoTemp = (char) RAF.readByte();
-                if (TamañoCampoTemp != ';') {
-                    if (ContadorDelimitador < 1) {
-                        TamañoCampo += TamañoCampoTemp;
-                        System.out.println(TamañoCampo);
-                    }
+                char Delimitador = (char) RAF.readByte();
+                if (Delimitador != ';') {
+                        Indice_Borrado += Delimitador;
+                        System.out.println(Indice_Borrado);
                 } else {
+                    int Indice = Integer.parseInt(Indice_Borrado);
+                    this.Borrados.push(Indice);
                     ContadorDelimitador++;
                 }
             }
