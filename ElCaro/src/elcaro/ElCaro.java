@@ -910,7 +910,6 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         if (variable_variable.borrados.isEmpty()) {
-            if (variable_variable.getManejo() == 'D') {
                 int RevisarCampos = 0;
                 DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLV_tabla.getModel();
                 Object[] Row = new Object[jt_ARLV_tabla.getColumnCount()];
@@ -927,11 +926,11 @@ public class ElCaro extends javax.swing.JFrame {
                 if (RevisarCampos == 0) {
                     for (int i = 0; i < Campos.size(); i++) {
                         File Archivo = null;
-                        Archivo = new File(fijo_fijo.getDireccion());
+                        Archivo = new File(variable_variable.getDireccion());
                         RandomAccessFile RAF = null;
                         try {
                             RAF = new RandomAccessFile(Archivo, "rw");
-                            fijo_fijo.Agregar(Row[i].toString(), RAF.length());
+                            variable_variable.Agregar(Row[i].toString(), RAF.length());
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
@@ -947,15 +946,7 @@ public class ElCaro extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
                 }
-            } else {
-                if (variable_variable.getManejo() == 'K') {
-
-                } else {
-                    if (variable_variable.getManejo() == 'I') {
-
-                    }
-                }
-            }
+            
         } else {
 
         }
