@@ -92,11 +92,21 @@ public class ElCaro extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_ARLV_tabla = new javax.swing.JTable();
-        jpm_Menu1 = new javax.swing.JPopupMenu();
-        jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
-        seleccionar_r = new javax.swing.JMenuItem();
-        borrar_registro = new javax.swing.JMenuItem();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jrb_ARLV_Indices_Si = new javax.swing.JRadioButton();
+        jrb_ARLV_Indices_No = new javax.swing.JRadioButton();
+        jpm_ARLF = new javax.swing.JPopupMenu();
+        jpm_ARLF_Modificar = new javax.swing.JMenuItem();
+        jpm_seleccionar_ARLF = new javax.swing.JMenuItem();
+        jpm_borrar_registro_ARLF = new javax.swing.JMenuItem();
         bg_ARLV_ManejoTabla = new javax.swing.ButtonGroup();
+        jpm_ARLV = new javax.swing.JPopupMenu();
+        jpm_ARLV_Modificar = new javax.swing.JMenuItem();
+        jpm_ARLV_Seleccionar = new javax.swing.JMenuItem();
+        jpm_ARLV_Borrar_Registro = new javax.swing.JMenuItem();
+        bg_ARLV_TablaIndices = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -131,7 +141,7 @@ public class ElCaro extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jt_ARLF_Tabla);
 
-        jb_Agregar_Campo_Fijo.setText("AGREGAR CAMPO");
+        jb_Agregar_Campo_Fijo.setText("AGREGAR REGISTRO");
         jb_Agregar_Campo_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_Agregar_Campo_FijoMouseClicked(evt);
@@ -156,7 +166,7 @@ public class ElCaro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -213,8 +223,8 @@ public class ElCaro extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addComponent(jb_Crear_Tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("ARLF", jPanel1);
@@ -254,7 +264,24 @@ public class ElCaro extends javax.swing.JFrame {
 
             }
         ));
+        jt_ARLV_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_ARLV_tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_ARLV_tabla);
+
+        jButton5.setText("AGREGAR REGISTRO");
+
+        jButton6.setText("CARGAR TABLA");
+
+        jLabel10.setText("Tabla de indices");
+
+        bg_ARLV_TablaIndices.add(jrb_ARLV_Indices_Si);
+        jrb_ARLV_Indices_Si.setText("Si");
+
+        bg_ARLV_TablaIndices.add(jrb_ARLV_Indices_No);
+        jrb_ARLV_Indices_No.setText("No");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -264,68 +291,94 @@ public class ElCaro extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(248, 248, 248)
-                        .addComponent(jLabel5))
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator2))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(74, 74, 74)
                                 .addComponent(jt_ARLV_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(jsp_ARLV_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(149, 149, 149)
+                        .addComponent(jb_ARLV_CrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel7))
+                                    .addComponent(jLabel10))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jsp_ARLV_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jrb_ARLV_Indices_Si)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jrb_ARLV_Indices_No))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jrb_ARLV_Delimitador)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jrb_ARLV_KeyValue)))))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 54, Short.MAX_VALUE)
-                                .addComponent(jb_ARLV_CrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jrb_ARLV_Indicador)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(121, 121, 121))
-            .addComponent(jSeparator2)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                                        .addComponent(jrb_ARLV_KeyValue)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jrb_ARLV_Indicador)))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jt_ARLV_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(jsp_ARLV_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jb_ARLV_CrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jb_ARLV_CrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jt_ARLV_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jsp_ARLV_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jrb_ARLV_Delimitador)
                     .addComponent(jrb_ARLV_KeyValue)
                     .addComponent(jrb_ARLV_Indicador))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jrb_ARLV_Indices_Si)
+                    .addComponent(jrb_ARLV_Indices_No))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("ARLV", jPanel2);
@@ -334,7 +387,7 @@ public class ElCaro extends javax.swing.JFrame {
         jd_Crear.getContentPane().setLayout(jd_CrearLayout);
         jd_CrearLayout.setHorizontalGroup(
             jd_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_CrearLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CrearLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
@@ -347,30 +400,39 @@ public class ElCaro extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jpm1_Menu1_Modificar.setText("Modificar");
-        jpm1_Menu1_Modificar.addActionListener(new java.awt.event.ActionListener() {
+        jpm_ARLF_Modificar.setText("Modificar");
+        jpm_ARLF_Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jpm1_Menu1_ModificarActionPerformed(evt);
+                jpm_ARLF_ModificarActionPerformed(evt);
             }
         });
-        jpm_Menu1.add(jpm1_Menu1_Modificar);
+        jpm_ARLF.add(jpm_ARLF_Modificar);
 
-        seleccionar_r.setText("Seleccionar Registro");
-        seleccionar_r.addActionListener(new java.awt.event.ActionListener() {
+        jpm_seleccionar_ARLF.setText("Seleccionar Registro");
+        jpm_seleccionar_ARLF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seleccionar_rActionPerformed(evt);
+                jpm_seleccionar_ARLFActionPerformed(evt);
             }
         });
-        jpm_Menu1.add(seleccionar_r);
+        jpm_ARLF.add(jpm_seleccionar_ARLF);
 
-        borrar_registro.setText("Borrar Registro");
-        borrar_registro.setEnabled(false);
-        borrar_registro.addActionListener(new java.awt.event.ActionListener() {
+        jpm_borrar_registro_ARLF.setText("Borrar Registro");
+        jpm_borrar_registro_ARLF.setEnabled(false);
+        jpm_borrar_registro_ARLF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                borrar_registroActionPerformed(evt);
+                jpm_borrar_registro_ARLFActionPerformed(evt);
             }
         });
-        jpm_Menu1.add(borrar_registro);
+        jpm_ARLF.add(jpm_borrar_registro_ARLF);
+
+        jpm_ARLV_Modificar.setText("jMenuItem1");
+        jpm_ARLV.add(jpm_ARLV_Modificar);
+
+        jpm_ARLV_Seleccionar.setText("jMenuItem2");
+        jpm_ARLV.add(jpm_ARLV_Seleccionar);
+
+        jpm_ARLV_Borrar_Registro.setText("jMenuItem3");
+        jpm_ARLV.add(jpm_ARLV_Borrar_Registro);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ElCaro ©");
@@ -492,10 +554,10 @@ public class ElCaro extends javax.swing.JFrame {
 
             DefaultTableModel Modelo = (DefaultTableModel) jt_ARLF_Tabla.getModel();
 
-            jpm_Menu1.show(evt.getComponent(), evt.getX(),
+            jpm_ARLF.show(evt.getComponent(), evt.getX(),
                     evt.getY());
         } else {
-            borrar_registro.setEnabled(false);
+            jpm_borrar_registro_ARLF.setEnabled(false);
         }
 
         System.out.println(Row + " " + Column);
@@ -633,7 +695,7 @@ public class ElCaro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jb_Agregar_Campo_FijoMouseClicked
 
-    private void jpm1_Menu1_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarActionPerformed
+    private void jpm_ARLF_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm_ARLF_ModificarActionPerformed
         // TODO add your handling code here:
         if (jt_ARLF_Tabla.getValueAt(jt_ARLF_Tabla.getSelectedRow(),
                 jt_ARLF_Tabla.getSelectedColumn()) != " ") {
@@ -689,17 +751,17 @@ public class ElCaro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "En esta Posicion No Existe Un Registro");
         }
-    }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
+    }//GEN-LAST:event_jpm_ARLF_ModificarActionPerformed
 
-    private void seleccionar_rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionar_rActionPerformed
+    private void jpm_seleccionar_ARLFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm_seleccionar_ARLFActionPerformed
         //jt_ARLF_ModificarTabla.setCellSelectionEnabled(false);
         jt_ARLF_Tabla.setColumnSelectionInterval(0, Integer.parseInt(fijo_fijo.NumeroCampos()) - 1);
-        borrar_registro.setEnabled(true);
+        jpm_borrar_registro_ARLF.setEnabled(true);
         //jt_ARLF_ModificarTabla.clearSelection();
-    }//GEN-LAST:event_seleccionar_rActionPerformed
+    }//GEN-LAST:event_jpm_seleccionar_ARLFActionPerformed
 
-    private void borrar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar_registroActionPerformed
-        if (borrar_registro.isEnabled() && jt_ARLF_Tabla.getValueAt(jt_ARLF_Tabla.getSelectedRow(),
+    private void jpm_borrar_registro_ARLFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm_borrar_registro_ARLFActionPerformed
+        if (jpm_borrar_registro_ARLF.isEnabled() && jt_ARLF_Tabla.getValueAt(jt_ARLF_Tabla.getSelectedRow(),
                 jt_ARLF_Tabla.getSelectedColumn()) != " ") {
             int seleccionado = jt_ARLF_Tabla.getSelectedRow();
             fijo_fijo.getBorrados().push(seleccionado);
@@ -736,8 +798,8 @@ public class ElCaro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!");
         }
-        borrar_registro.setEnabled(false);
-    }//GEN-LAST:event_borrar_registroActionPerformed
+        jpm_borrar_registro_ARLF.setEnabled(false);
+    }//GEN-LAST:event_jpm_borrar_registro_ARLFActionPerformed
 
     private void jb_Cargar_tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Cargar_tabla_FijoMouseClicked
         // TODO add your handling code here:
@@ -821,6 +883,24 @@ public class ElCaro extends javax.swing.JFrame {
         jt_ARLV_tabla.setModel(Modelo);
     }//GEN-LAST:event_jb_ARLV_CrearTablaMouseClicked
 
+    private void jt_ARLV_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLV_tablaMouseClicked
+        // TODO add your handling code here:
+        int Row = jt_ARLV_tabla.getSelectedRow();
+        int Column = jt_ARLV_tabla.getSelectedColumn();
+
+        if (evt.isMetaDown() && jt_ARLV_tabla.getSelectedRow() != -1) {
+
+            DefaultTableModel Modelo = (DefaultTableModel) jt_ARLV_tabla.getModel();
+
+            jpm_ARLV.show(evt.getComponent(), evt.getX(),
+                    evt.getY());
+        } else {
+            jpm_ARLV_Borrar_Registro.setEnabled(false);
+        }
+
+        System.out.println(Row + " " + Column);
+    }//GEN-LAST:event_jt_ARLV_tablaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -858,12 +938,15 @@ public class ElCaro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_ARLV_ManejoTabla;
-    private javax.swing.JMenuItem borrar_registro;
+    private javax.swing.ButtonGroup bg_ARLV_TablaIndices;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -884,10 +967,18 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JButton jb_Cargar_tabla_Fijo;
     private javax.swing.JButton jb_Crear_Tabla_Fijo;
     private javax.swing.JDialog jd_Crear;
-    private javax.swing.JMenuItem jpm1_Menu1_Modificar;
-    private javax.swing.JPopupMenu jpm_Menu1;
+    private javax.swing.JPopupMenu jpm_ARLF;
+    private javax.swing.JMenuItem jpm_ARLF_Modificar;
+    private javax.swing.JPopupMenu jpm_ARLV;
+    private javax.swing.JMenuItem jpm_ARLV_Borrar_Registro;
+    private javax.swing.JMenuItem jpm_ARLV_Modificar;
+    private javax.swing.JMenuItem jpm_ARLV_Seleccionar;
+    private javax.swing.JMenuItem jpm_borrar_registro_ARLF;
+    private javax.swing.JMenuItem jpm_seleccionar_ARLF;
     private javax.swing.JRadioButton jrb_ARLV_Delimitador;
     private javax.swing.JRadioButton jrb_ARLV_Indicador;
+    private javax.swing.JRadioButton jrb_ARLV_Indices_No;
+    private javax.swing.JRadioButton jrb_ARLV_Indices_Si;
     private javax.swing.JRadioButton jrb_ARLV_KeyValue;
     private javax.swing.JSpinner jsp_ARLF_LongitudCampos;
     private javax.swing.JSpinner jsp_ARLF_NumeroCampos;
@@ -896,7 +987,6 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JTextField jt_ARLV_Nombre;
     private javax.swing.JTable jt_ARLV_tabla;
     private javax.swing.JTextField nombre_arlf;
-    private javax.swing.JMenuItem seleccionar_r;
     // End of variables declaration//GEN-END:variables
     ARLF fijo_fijo = new ARLF();
     ARLV variable_variable = new ARLV();
