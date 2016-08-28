@@ -765,6 +765,10 @@ public class ElCaro extends javax.swing.JFrame {
             jt_ARLF_ModificarTabla.setModel(Modelo);
             Modelo.removeRow(Modelo.getRowCount() - 1);
             
+            String NombreArchivoFijo = selectedFile.getName();
+            fijo_fijo.setDireccion(NombreArchivoFijo);
+            
+            
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto");
         }
