@@ -745,7 +745,7 @@ public class ElCaro extends javax.swing.JFrame {
         fileChooser.setDialogTitle("Elija el archivo de texto");
 
         File Archivo_Referencia = null;
-        Archivo_Referencia = new File("C:\\Users\\Alexy Cruz\\Desktop\\ED2_Proyecto1\\ElCaro");
+        Archivo_Referencia = new File("./");
 
         fileChooser.setCurrentDirectory(Archivo_Referencia);
         int returnValue = fileChooser.showOpenDialog(jd_Crear);
