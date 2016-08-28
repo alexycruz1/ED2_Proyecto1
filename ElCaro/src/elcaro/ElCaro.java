@@ -245,6 +245,7 @@ public class ElCaro extends javax.swing.JFrame {
         jLabel9.setText("Manejo de Tabla");
 
         bg_ARLV_ManejoTabla.add(jrb_ARLV_Delimitador);
+        jrb_ARLV_Delimitador.setSelected(true);
         jrb_ARLV_Delimitador.setText("Delimitador");
 
         bg_ARLV_ManejoTabla.add(jrb_ARLV_Indicador);
@@ -272,12 +273,18 @@ public class ElCaro extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jt_ARLV_tabla);
 
         jButton5.setText("AGREGAR REGISTRO");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         jButton6.setText("CARGAR TABLA");
 
         jLabel10.setText("Tabla de indices");
 
         bg_ARLV_TablaIndices.add(jrb_ARLV_Indices_Si);
+        jrb_ARLV_Indices_Si.setSelected(true);
         jrb_ARLV_Indices_Si.setText("Si");
 
         bg_ARLV_TablaIndices.add(jrb_ARLV_Indices_No);
@@ -900,6 +907,60 @@ public class ElCaro extends javax.swing.JFrame {
 
         System.out.println(Row + " " + Column);
     }//GEN-LAST:event_jt_ARLV_tablaMouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        if (variable_variable.borrados.isEmpty()) {
+            if (variable_variable.getManejo() == 'D') {
+                int RevisarCampos = 0;
+                DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLV_tabla.getModel();
+                Object[] Row = new Object[jt_ARLV_tabla.getColumnCount()];
+                ArrayList<String> Campos = new ArrayList();
+                for (int i = 0; i < jt_ARLV_tabla.getColumnCount(); i++) {
+                    String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getModel().getColumnName(i),
+                            jt_ARLV_tabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+
+                    Campos.add(Campo);
+                }
+                for (int i = 0; i < Campos.size(); i++) {
+                        RevisarCampos++;
+                }
+                if (RevisarCampos == 0) {
+                    for (int i = 0; i < Campos.size(); i++) {
+                        File Archivo = null;
+                        Archivo = new File(fijo_fijo.getDireccion());
+                        RandomAccessFile RAF = null;
+                        try {
+                            RAF = new RandomAccessFile(Archivo, "rw");
+                            fijo_fijo.Agregar(Row[i].toString(), RAF.length());
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        if (i == Campos.size() - 1) {
+                            ModeloTabla.addRow(Row);
+                        }
+
+                    }
+                    JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+                } else {
+                    JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+                }
+            } else {
+                if (variable_variable.getManejo() == 'K') {
+
+                } else {
+                    if (variable_variable.getManejo() == 'I') {
+
+                    }
+                }
+            }
+        } else {
+
+        }
+
+    }//GEN-LAST:event_jButton5MouseClicked
 
     /**
      * @param args the command line arguments

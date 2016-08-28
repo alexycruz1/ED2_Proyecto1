@@ -1,16 +1,26 @@
 
 package elcaro;
 
+import java.util.ArrayList;
+
 
 public class ARLV {
     String Direccion;
     char manejo;
-
+    ArrayList<String> borrados = new ArrayList();
     public ARLV(String Direccion, char manejo) {
         this.Direccion = Direccion;
         this.manejo = manejo;
     }
 
+    public ArrayList<String> getBorrados() {
+        return borrados;
+    }
+
+    public void setBorrados(ArrayList<String> borrados) {
+        this.borrados = borrados;
+    }
+    
     public ARLV() {
     }
 
