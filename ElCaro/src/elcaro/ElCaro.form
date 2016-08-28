@@ -70,7 +70,7 @@
                                               <Component id="nombre_arlf" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                          <Component id="jButton5" min="-2" pref="146" max="-2" attributes="0"/>
+                                          <Component id="jb_Crear_Tabla_Fijo" min="-2" pref="146" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -80,7 +80,9 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                          <Component id="jb_Agregar_Campo_Fijo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jb_Cargar_tabla_Fijo" min="-2" pref="123" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -110,14 +112,17 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jb_Agregar_Campo_Fijo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jb_Cargar_tabla_Fijo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jScrollPane2" min="-2" pref="389" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="jButton5" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="jb_Crear_Tabla_Fijo" min="-2" pref="44" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -145,12 +150,12 @@
                     <Property name="text" type="java.lang.String" value="CREAR TABLA"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton5">
+                <Component class="javax.swing.JButton" name="jb_Crear_Tabla_Fijo">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Crear Tabla"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton5MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jb_Crear_Tabla_FijoMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -181,12 +186,12 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton6">
+                <Component class="javax.swing.JButton" name="jb_Agregar_Campo_Fijo">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="AGREGAR CAMPO"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton6MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jb_Agregar_Campo_FijoMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -195,6 +200,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="nombre_arlf">
+                </Component>
+                <Component class="javax.swing.JButton" name="jb_Cargar_tabla_Fijo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="CARGAR TABLA"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jb_Cargar_tabla_FijoMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -260,10 +273,12 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="ElCaro &#xa9;"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>

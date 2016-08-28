@@ -7,6 +7,7 @@ package elcaro;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -67,13 +69,14 @@ public class ElCaro extends javax.swing.JFrame {
         jsp_ARLF_NumeroCampos = new javax.swing.JSpinner();
         jsp_ARLF_LongitudCampos = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        jb_Crear_Tabla_Fijo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         jt_ARLF_ModificarTabla = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        jb_Agregar_Campo_Fijo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         nombre_arlf = new javax.swing.JTextField();
+        jb_Cargar_tabla_Fijo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jpm_Menu1 = new javax.swing.JPopupMenu();
         jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
@@ -90,10 +93,10 @@ public class ElCaro extends javax.swing.JFrame {
 
         jLabel3.setText("CREAR TABLA");
 
-        jButton5.setText("Crear Tabla");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jb_Crear_Tabla_Fijo.setText("Crear Tabla");
+        jb_Crear_Tabla_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                jb_Crear_Tabla_FijoMouseClicked(evt);
             }
         });
 
@@ -116,14 +119,21 @@ public class ElCaro extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jt_ARLF_ModificarTabla);
 
-        jButton6.setText("AGREGAR CAMPO");
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jb_Agregar_Campo_Fijo.setText("AGREGAR CAMPO");
+        jb_Agregar_Campo_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
+                jb_Agregar_Campo_FijoMouseClicked(evt);
             }
         });
 
         jLabel4.setText("Nombre");
+
+        jb_Cargar_tabla_Fijo.setText("CARGAR TABLA");
+        jb_Cargar_tabla_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_Cargar_tabla_FijoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,12 +163,14 @@ public class ElCaro extends javax.swing.JFrame {
                                         .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(nombre_arlf, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(33, 33, 33)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jb_Crear_Tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton6)
+                .addComponent(jb_Agregar_Campo_Fijo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jb_Cargar_tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,13 +195,15 @@ public class ElCaro extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jb_Agregar_Campo_Fijo)
+                            .addComponent(jb_Cargar_tabla_Fijo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jb_Crear_Tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -251,6 +265,8 @@ public class ElCaro extends javax.swing.JFrame {
         jpm_Menu1.add(borrar_registro);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ElCaro ©");
+        setResizable(false);
 
         jButton1.setText("Crear");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -299,6 +315,7 @@ public class ElCaro extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -309,15 +326,15 @@ public class ElCaro extends javax.swing.JFrame {
         jd_Crear.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void jb_Crear_Tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Crear_Tabla_FijoMouseClicked
         // TODO add your handling code here:
         if (contador_arlf < 1) {
             contador_arlf++;
-            String Direccion = nombre_arlf.getText()+".txt";
-            String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" +".txt";
+            String Direccion = nombre_arlf.getText() + ".txt";
+            String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
             fijo_fijo.setDireccion(Direccion);
             System.out.println(fijo_fijo.getDireccion());
-            File Archivo = null, Archivo_b=null;
+            File Archivo = null, Archivo_b = null;
             Archivo = new File(Direccion);
             Archivo_b = new File(Borrado);
             RandomAccessFile RAF = null;
@@ -361,7 +378,7 @@ public class ElCaro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Ya se ha creado una tabla!");
         }
-    }//GEN-LAST:event_jButton5MouseClicked
+    }//GEN-LAST:event_jb_Crear_Tabla_FijoMouseClicked
 
     private void jt_ARLF_ModificarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLF_ModificarTablaMouseClicked
         // TODO add your handling code here:
@@ -379,7 +396,7 @@ public class ElCaro extends javax.swing.JFrame {
         System.out.println(Row + " " + Column);
     }//GEN-LAST:event_jt_ARLF_ModificarTablaMouseClicked
 
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+    private void jb_Agregar_Campo_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Agregar_Campo_FijoMouseClicked
         // TODO add your handling code here:
         int RevisarCampos = 0;
         DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
@@ -431,7 +448,7 @@ public class ElCaro extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
         }
-    }//GEN-LAST:event_jButton6MouseClicked
+    }//GEN-LAST:event_jb_Agregar_Campo_FijoMouseClicked
 
     private void jpm1_Menu1_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarActionPerformed
         // TODO add your handling code here:
@@ -487,7 +504,7 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void seleccionar_rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionar_rActionPerformed
         //jt_ARLF_ModificarTabla.setCellSelectionEnabled(false);
-        jt_ARLF_ModificarTabla.setColumnSelectionInterval(0,Integer.parseInt(fijo_fijo.NumeroCampos())-1);
+        jt_ARLF_ModificarTabla.setColumnSelectionInterval(0, Integer.parseInt(fijo_fijo.NumeroCampos()) - 1);
         borrar_registro.setEnabled(true);
         //jt_ARLF_ModificarTabla.clearSelection();
     }//GEN-LAST:event_seleccionar_rActionPerformed
@@ -496,32 +513,63 @@ public class ElCaro extends javax.swing.JFrame {
         if (borrar_registro.isEnabled()) {
             int seleccionado = jt_ARLF_ModificarTabla.getSelectedRow();
             fijo_fijo.getBorrados().push(seleccionado);
-            String direccion="";
-            direccion = fijo_fijo.getDireccion().substring(0,fijo_fijo.getDireccion().length()-4);
+            String direccion = "";
+            direccion = fijo_fijo.getDireccion().substring(0, fijo_fijo.getDireccion().length() - 4);
             System.out.println(direccion);
-            String Borrado = "./borrados/" + direccion + "borr" +".txt";
+            String Borrado = "./borrados/" + direccion + "borr" + ".txt";
             System.out.println(Borrado);
-            File Archivo_b=null;
-            
+            File Archivo_b = null;
+
             Archivo_b = new File(Borrado);
             RandomAccessFile RAF2 = null;
             try {
                 RAF2 = new RandomAccessFile(Archivo_b, "rw");
                 RAF2.seek(0);
-                if((char)RAF2.readByte()== '$') {
-                    RAF2.seek(RAF2.length()-1);
-                    RAF2.writeBytes(Integer.toString(seleccionado)+";");
-                }else{
-                    RAF2.writeBytes(Integer.toString(seleccionado)+";");
+                if ((char) RAF2.readByte() == '$') {
+                    RAF2.seek(RAF2.length() - 1);
+                    RAF2.writeBytes(Integer.toString(seleccionado) + ";");
+                } else {
+                    RAF2.writeBytes(Integer.toString(seleccionado) + ";");
                 }
-                
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
+                jt_ARLF_ModificarTabla.setValueAt(" ", jt_ARLF_ModificarTabla.getSelectedRow(),
+                        jt_ARLF_ModificarTabla.getSelectedColumn() + i);
+            }
+
         }
     }//GEN-LAST:event_borrar_registroActionPerformed
+
+    private void jb_Cargar_tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Cargar_tabla_FijoMouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Elija el archivo de texto");
+
+        File Archivo_Referencia = null;
+        Archivo_Referencia = new File("C:\\Users\\Alexy Cruz\\Desktop\\ED2_Proyecto1\\ElCaro");
+
+        fileChooser.setCurrentDirectory(Archivo_Referencia);
+        int returnValue = fileChooser.showOpenDialog(jd_Crear);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")) {
+            File selectedFile = fileChooser.getSelectedFile();
+            
+            String DireccionArchivo = selectedFile.getAbsolutePath();
+            String DireccionBorrado = "./borrados/" + selectedFile.getName() + ".txt";
+            
+            fijo_fijo.setDireccion(DireccionArchivo);
+            fijo_fijo.CargarArchivoFijo(DireccionArchivo, DireccionBorrado);
+            
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto");
+        }
+    }//GEN-LAST:event_jb_Cargar_tabla_FijoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -564,8 +612,6 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -575,6 +621,9 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton jb_Agregar_Campo_Fijo;
+    private javax.swing.JButton jb_Cargar_tabla_Fijo;
+    private javax.swing.JButton jb_Crear_Tabla_Fijo;
     private javax.swing.JDialog jd_Crear;
     private javax.swing.JMenuItem jpm1_Menu1_Modificar;
     private javax.swing.JPopupMenu jpm_Menu1;
@@ -584,6 +633,6 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JTextField nombre_arlf;
     private javax.swing.JMenuItem seleccionar_r;
     // End of variables declaration//GEN-END:variables
-int contador_arlf = 0;
+    int contador_arlf = 0;
     ARLF fijo_fijo = new ARLF();
 }

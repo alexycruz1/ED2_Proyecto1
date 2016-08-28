@@ -135,4 +135,58 @@ public class ARLF {
     public void setBorrados(Stack<Integer> Borrados) {
         this.Borrados = Borrados;
     }
+    
+    public boolean IsFija(File Archivo){
+        boolean IsFija = false;
+        
+        Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+        
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+            
+            for (int i = 0; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char Revisar = (char)RAF.readByte();
+                if (Revisar == ';') {
+                   IsFija = true; 
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ARLF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ARLF.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        return IsFija;
+    }
+    
+    public void CargarArchivoFijo(String DireccionArchivo, String DireccionPila){
+        String TamañoCampo = "";
+        int ContadorDelimitador = 0;
+        File Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+        
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+            for (int i = 0; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char TamañoCampoTemp = (char) RAF.readByte();
+                if (TamañoCampoTemp != ';') {
+                    if (ContadorDelimitador < 1) {
+                        TamañoCampo += TamañoCampoTemp;
+                        System.out.println(TamañoCampo);
+                    }
+                } else {
+                    ContadorDelimitador++;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ARLF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ARLF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
