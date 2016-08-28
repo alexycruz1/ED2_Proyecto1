@@ -11,6 +11,9 @@ public class ARLV {
         this.manejo = manejo;
     }
 
+    public ARLV() {
+    }
+
     public String getDireccion() {
         return Direccion;
     }

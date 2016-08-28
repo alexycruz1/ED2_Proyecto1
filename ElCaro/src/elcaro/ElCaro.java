@@ -72,7 +72,7 @@ public class ElCaro extends javax.swing.JFrame {
         jb_Crear_Tabla_Fijo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jt_ARLF_ModificarTabla = new javax.swing.JTable();
+        jt_ARLF_Tabla = new javax.swing.JTable();
         jb_Agregar_Campo_Fijo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         nombre_arlf = new javax.swing.JTextField();
@@ -91,7 +91,7 @@ public class ElCaro extends javax.swing.JFrame {
         jrb_ARLV_KeyValue = new javax.swing.JRadioButton();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jt_ARLV_tabla = new javax.swing.JTable();
         jpm_Menu1 = new javax.swing.JPopupMenu();
         jpm1_Menu1_Modificar = new javax.swing.JMenuItem();
         seleccionar_r = new javax.swing.JMenuItem();
@@ -115,7 +115,7 @@ public class ElCaro extends javax.swing.JFrame {
             }
         });
 
-        jt_ARLF_ModificarTabla.setModel(new javax.swing.table.DefaultTableModel(
+        jt_ARLF_Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -123,13 +123,13 @@ public class ElCaro extends javax.swing.JFrame {
 
             }
         ));
-        jt_ARLF_ModificarTabla.setCellSelectionEnabled(true);
-        jt_ARLF_ModificarTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+        jt_ARLF_Tabla.setCellSelectionEnabled(true);
+        jt_ARLF_Tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_ARLF_ModificarTablaMouseClicked(evt);
+                jt_ARLF_TablaMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jt_ARLF_ModificarTabla);
+        jScrollPane2.setViewportView(jt_ARLF_Tabla);
 
         jb_Agregar_Campo_Fijo.setText("AGREGAR CAMPO");
         jb_Agregar_Campo_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -226,6 +226,11 @@ public class ElCaro extends javax.swing.JFrame {
         jLabel8.setText("Numero de Campos");
 
         jb_ARLV_CrearTabla.setText("Crear Tabla");
+        jb_ARLV_CrearTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_ARLV_CrearTablaMouseClicked(evt);
+            }
+        });
 
         jLabel9.setText("Manejo de Tabla");
 
@@ -238,7 +243,7 @@ public class ElCaro extends javax.swing.JFrame {
         bg_ARLV_ManejoTabla.add(jrb_ARLV_KeyValue);
         jrb_ARLV_KeyValue.setText("Key Value");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jt_ARLV_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -249,7 +254,7 @@ public class ElCaro extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jt_ARLV_tabla);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -431,66 +436,61 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jb_Crear_Tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Crear_Tabla_FijoMouseClicked
         // TODO add your handling code here:
-        if (contador_arlf < 1) {
-            contador_arlf++;
-            String Direccion = nombre_arlf.getText() + ".txt";
-            String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
-            fijo_fijo.setDireccion(Direccion);
-            System.out.println(fijo_fijo.getDireccion());
-            File Archivo = null, Archivo_b = null;
-            Archivo = new File(Direccion);
-            Archivo_b = new File(Borrado);
-            RandomAccessFile RAF = null;
-            RandomAccessFile RAF2 = null;
-            try {
-                RAF = new RandomAccessFile(Archivo, "rw");
-                RAF2 = new RandomAccessFile(Archivo_b, "rw");
-                RAF.writeBytes(jsp_ARLF_NumeroCampos.getValue().toString());
-                RAF2.writeBytes("$");
-                RAF.seek(RAF.length());
-                RAF.writeBytes(";");
-                RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
-                RAF.seek(RAF.length());
-                RAF.writeBytes(";");
+        String Direccion = nombre_arlf.getText() + ".txt";
+        String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
+        fijo_fijo.setDireccion(Direccion);
+        System.out.println(fijo_fijo.getDireccion());
+        File Archivo = null, Archivo_b = null;
+        Archivo = new File(Direccion);
+        Archivo_b = new File(Borrado);
+        RandomAccessFile RAF = null;
+        RandomAccessFile RAF2 = null;
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+            RAF2 = new RandomAccessFile(Archivo_b, "rw");
+            RAF.writeBytes(jsp_ARLF_NumeroCampos.getValue().toString());
+            RAF2.writeBytes("$");
+            RAF.seek(RAF.length());
+            RAF.writeBytes(";");
+            RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
+            RAF.seek(RAF.length());
+            RAF.writeBytes(";");
 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DefaultTableModel Modelo = new DefaultTableModel();
+        int NumeroCampos = (int) (jsp_ARLF_NumeroCampos.getValue());
+
+        for (int i = 0; i < NumeroCampos; i++) {
+            String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
+                    "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
+            Modelo.addColumn(NombreCampo);
+            try {
+                RAF.seek(RAF.length());
+                RAF.writeBytes(NombreCampo);
+                RAF.writeBytes(";");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            DefaultTableModel Modelo = new DefaultTableModel();
-            int NumeroCampos = (int) (jsp_ARLF_NumeroCampos.getValue());
-
-            for (int i = 0; i < NumeroCampos; i++) {
-                String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
-                        "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
-                Modelo.addColumn(NombreCampo);
-                try {
-                    RAF.seek(RAF.length());
-                    RAF.writeBytes(NombreCampo);
-                    RAF.writeBytes(";");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            jt_ARLF_ModificarTabla.setModel(Modelo);
-        } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Ya se ha creado una tabla!");
         }
+
+        jt_ARLF_Tabla.setModel(Modelo);
     }//GEN-LAST:event_jb_Crear_Tabla_FijoMouseClicked
 
-    private void jt_ARLF_ModificarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLF_ModificarTablaMouseClicked
+    private void jt_ARLF_TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLF_TablaMouseClicked
         // TODO add your handling code here:
-        int Row = jt_ARLF_ModificarTabla.getSelectedRow();
-        int Column = jt_ARLF_ModificarTabla.getSelectedColumn();
+        int Row = jt_ARLF_Tabla.getSelectedRow();
+        int Column = jt_ARLF_Tabla.getSelectedColumn();
 
-        if (evt.isMetaDown() && jt_ARLF_ModificarTabla.getSelectedRow() != -1) {
+        if (evt.isMetaDown() && jt_ARLF_Tabla.getSelectedRow() != -1) {
 
-            DefaultTableModel Modelo = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+            DefaultTableModel Modelo = (DefaultTableModel) jt_ARLF_Tabla.getModel();
 
             jpm_Menu1.show(evt.getComponent(), evt.getX(),
                     evt.getY());
@@ -499,18 +499,18 @@ public class ElCaro extends javax.swing.JFrame {
         }
 
         System.out.println(Row + " " + Column);
-    }//GEN-LAST:event_jt_ARLF_ModificarTablaMouseClicked
+    }//GEN-LAST:event_jt_ARLF_TablaMouseClicked
 
     private void jb_Agregar_Campo_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Agregar_Campo_FijoMouseClicked
         if (fijo_fijo.Borrados.empty()) {
 
             int RevisarCampos = 0;
-            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
-            Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
+            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_Tabla.getModel();
+            Object[] Row = new Object[jt_ARLF_Tabla.getColumnCount()];
             ArrayList<String> Campos = new ArrayList();
-            for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
-                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
-                        jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+            for (int i = 0; i < jt_ARLF_Tabla.getColumnCount(); i++) {
+                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_Tabla.getModel().getColumnName(i),
+                        jt_ARLF_Tabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
 
                 Campos.add(Campo);
             }
@@ -561,9 +561,9 @@ public class ElCaro extends javax.swing.JFrame {
             String nuevo_c = "";
             String[] row = new String[Integer.parseInt(fijo_fijo.NumeroCampos())];
             ArrayList<String> Campos = new ArrayList();
-            for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
-                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
-                        jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+            for (int i = 0; i < jt_ARLF_Tabla.getColumnCount(); i++) {
+                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_Tabla.getModel().getColumnName(i),
+                        jt_ARLF_Tabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
 
                 Campos.add(Campo);
                 nuevo_c = nuevo_c + Campo;
@@ -622,7 +622,7 @@ public class ElCaro extends javax.swing.JFrame {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 for (int i = 0; i < Integer.parseInt(fijo_fijo.NumeroCampos()); i++) {
-                    jt_ARLF_ModificarTabla.setValueAt(row[i], posicion, i);
+                    jt_ARLF_Tabla.setValueAt(row[i], posicion, i);
                 }
 
                 JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
@@ -635,12 +635,12 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jpm1_Menu1_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarActionPerformed
         // TODO add your handling code here:
-        if (jt_ARLF_ModificarTabla.getValueAt(jt_ARLF_ModificarTabla.getSelectedRow(),
-                jt_ARLF_ModificarTabla.getSelectedColumn()) != " ") {
+        if (jt_ARLF_Tabla.getValueAt(jt_ARLF_Tabla.getSelectedRow(),
+                jt_ARLF_Tabla.getSelectedColumn()) != " ") {
 
-            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_Tabla.getModel();
 
-            String Campo = ModeloTabla.getColumnName(jt_ARLF_ModificarTabla.getSelectedColumn());
+            String Campo = ModeloTabla.getColumnName(jt_ARLF_Tabla.getSelectedColumn());
 
             String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
                     JOptionPane.INFORMATION_MESSAGE);
@@ -650,8 +650,8 @@ public class ElCaro extends javax.swing.JFrame {
             }
 
             if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
-                jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
-                        jt_ARLF_ModificarTabla.getSelectedColumn());
+                jt_ARLF_Tabla.setValueAt(ModificarCampo, jt_ARLF_Tabla.getSelectedRow(),
+                        jt_ARLF_Tabla.getSelectedColumn());
 
                 File Archivo = null;
                 Archivo = new File(fijo_fijo.getDireccion());
@@ -665,10 +665,10 @@ public class ElCaro extends javax.swing.JFrame {
                         char TamañoCampoTemp = (char) RAF.readByte();
                         if (TamañoCampoTemp != ';') {
                             if (ContadorDelimitador == 4) {
-                                int Posicion = (jt_ARLF_ModificarTabla.getSelectedRow()
+                                int Posicion = (jt_ARLF_Tabla.getSelectedRow()
                                         * Integer.parseInt(fijo_fijo.NumeroCampos())
                                         * Integer.parseInt(fijo_fijo.TamañoCampo()))
-                                        + (jt_ARLF_ModificarTabla.getSelectedColumn()
+                                        + (jt_ARLF_Tabla.getSelectedColumn()
                                         * Integer.parseInt(fijo_fijo.TamañoCampo()));
                                 RAF.seek(i + Posicion);
                                 RAF.writeBytes(ModificarCampo);
@@ -693,15 +693,15 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void seleccionar_rActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionar_rActionPerformed
         //jt_ARLF_ModificarTabla.setCellSelectionEnabled(false);
-        jt_ARLF_ModificarTabla.setColumnSelectionInterval(0, Integer.parseInt(fijo_fijo.NumeroCampos()) - 1);
+        jt_ARLF_Tabla.setColumnSelectionInterval(0, Integer.parseInt(fijo_fijo.NumeroCampos()) - 1);
         borrar_registro.setEnabled(true);
         //jt_ARLF_ModificarTabla.clearSelection();
     }//GEN-LAST:event_seleccionar_rActionPerformed
 
     private void borrar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar_registroActionPerformed
-        if (borrar_registro.isEnabled() && jt_ARLF_ModificarTabla.getValueAt(jt_ARLF_ModificarTabla.getSelectedRow(),
-                jt_ARLF_ModificarTabla.getSelectedColumn()) != " ") {
-            int seleccionado = jt_ARLF_ModificarTabla.getSelectedRow();
+        if (borrar_registro.isEnabled() && jt_ARLF_Tabla.getValueAt(jt_ARLF_Tabla.getSelectedRow(),
+                jt_ARLF_Tabla.getSelectedColumn()) != " ") {
+            int seleccionado = jt_ARLF_Tabla.getSelectedRow();
             fijo_fijo.getBorrados().push(seleccionado);
             String direccion = "";
             direccion = fijo_fijo.getDireccion().substring(0, fijo_fijo.getDireccion().length() - 4);
@@ -729,9 +729,9 @@ public class ElCaro extends javax.swing.JFrame {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
-                jt_ARLF_ModificarTabla.setValueAt(" ", jt_ARLF_ModificarTabla.getSelectedRow(),
-                        jt_ARLF_ModificarTabla.getSelectedColumn() + i);
+            for (int i = 0; i < jt_ARLF_Tabla.getColumnCount(); i++) {
+                jt_ARLF_Tabla.setValueAt(" ", jt_ARLF_Tabla.getSelectedRow(),
+                        jt_ARLF_Tabla.getSelectedColumn() + i);
             }
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!");
@@ -750,7 +750,7 @@ public class ElCaro extends javax.swing.JFrame {
 
         fileChooser.setCurrentDirectory(Archivo_Referencia);
         int returnValue = fileChooser.showOpenDialog(jd_Crear);
-        
+
         File selectedFile = fileChooser.getSelectedFile();
         String DireccionArchivo = selectedFile.getAbsolutePath();
         fijo_fijo.setDireccion(DireccionArchivo);
@@ -765,7 +765,7 @@ public class ElCaro extends javax.swing.JFrame {
             DefaultTableModel Modelo = new DefaultTableModel();
             fijo_fijo.setDireccion(DireccionArchivo);
             DefaultTableModel ModeloTabla = fijo_fijo.CargarArchivoFijo(DireccionArchivo, DireccionBorrado, Modelo);
-            jt_ARLF_ModificarTabla.setModel(Modelo);
+            jt_ARLF_Tabla.setModel(Modelo);
             Modelo.removeRow(Modelo.getRowCount() - 1);
             String NombreArchivoFijo = selectedFile.getName();
             fijo_fijo.setDireccion(NombreArchivoFijo);
@@ -774,6 +774,52 @@ public class ElCaro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud fija");
         }
     }//GEN-LAST:event_jb_Cargar_tabla_FijoMouseClicked
+
+    private void jb_ARLV_CrearTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ARLV_CrearTablaMouseClicked
+        // TODO add your handling code here:
+        String Direccion = nombre_arlf.getText() + ".txt";
+        String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
+        variable_variable.setDireccion(Direccion);
+        System.out.println(variable_variable.getDireccion());
+        File Archivo = null, Archivo_b = null;
+        Archivo = new File(Direccion);
+        Archivo_b = new File(Borrado);
+        RandomAccessFile RAF = null;
+        RandomAccessFile RAF2 = null;
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+            RAF2 = new RandomAccessFile(Archivo_b, "rw");
+            RAF.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
+            RAF2.writeBytes("$");
+            RAF.seek(RAF.length());
+            RAF.writeBytes(":");
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        DefaultTableModel Modelo = new DefaultTableModel();
+        int NumeroCampos = (int) (jsp_ARLV_NumeroCampos.getValue());
+
+        for (int i = 0; i < NumeroCampos; i++) {
+            String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
+                    "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
+            Modelo.addColumn(NombreCampo);
+            try {
+                RAF.seek(RAF.length());
+                RAF.writeBytes(NombreCampo);
+                RAF.writeBytes(";");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        jt_ARLV_tabla.setModel(Modelo);
+    }//GEN-LAST:event_jb_ARLV_CrearTablaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -833,7 +879,6 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jb_ARLV_CrearTabla;
     private javax.swing.JButton jb_Agregar_Campo_Fijo;
     private javax.swing.JButton jb_Cargar_tabla_Fijo;
@@ -847,11 +892,12 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JSpinner jsp_ARLF_LongitudCampos;
     private javax.swing.JSpinner jsp_ARLF_NumeroCampos;
     private javax.swing.JSpinner jsp_ARLV_NumeroCampos;
-    private javax.swing.JTable jt_ARLF_ModificarTabla;
+    private javax.swing.JTable jt_ARLF_Tabla;
     private javax.swing.JTextField jt_ARLV_Nombre;
+    private javax.swing.JTable jt_ARLV_tabla;
     private javax.swing.JTextField nombre_arlf;
     private javax.swing.JMenuItem seleccionar_r;
     // End of variables declaration//GEN-END:variables
-    int contador_arlf = 0;
     ARLF fijo_fijo = new ARLF();
+    ARLV variable_variable = new ARLV();
 }
