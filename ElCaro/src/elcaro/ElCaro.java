@@ -102,16 +102,13 @@ public class ElCaro extends javax.swing.JFrame {
 
         jt_ARLF_ModificarTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
             }
         ));
-        jt_ARLF_ModificarTabla.setCellSelectionEnabled(true);
+        jt_ARLF_ModificarTabla.setColumnSelectionAllowed(false);
         jt_ARLF_ModificarTabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jt_ARLF_ModificarTablaMouseClicked(evt);
