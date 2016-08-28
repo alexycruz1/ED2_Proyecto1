@@ -777,8 +777,8 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jb_ARLV_CrearTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ARLV_CrearTablaMouseClicked
         // TODO add your handling code here:
-        String Direccion = nombre_arlf.getText() + ".txt";
-        String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
+        String Direccion = jt_ARLV_Nombre.getText() + ".txt";
+        String Borrado = "./borrados/" + jt_ARLV_Nombre.getText() + "borr" + ".txt";
         variable_variable.setDireccion(Direccion);
         System.out.println(variable_variable.getDireccion());
         File Archivo = null, Archivo_b = null;
@@ -810,7 +810,7 @@ public class ElCaro extends javax.swing.JFrame {
             try {
                 RAF.seek(RAF.length());
                 RAF.writeBytes(NombreCampo);
-                RAF.writeBytes(";");
+                RAF.writeBytes(":");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

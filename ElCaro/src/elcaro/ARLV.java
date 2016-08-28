@@ -43,4 +43,7 @@ public class ARLV {
         return 0;
     }
     
+    public String GetNombreCampo(int i){
+        return "";
+    }
 }
