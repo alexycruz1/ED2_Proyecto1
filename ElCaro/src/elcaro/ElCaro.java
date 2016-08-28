@@ -560,10 +560,16 @@ public class ElCaro extends javax.swing.JFrame {
             File selectedFile = fileChooser.getSelectedFile();
             
             String DireccionArchivo = selectedFile.getAbsolutePath();
-            String DireccionBorrado = "./borrados/" + selectedFile.getName() + ".txt";
+            String NombreArchivoBorrado = selectedFile.getName();
+            NombreArchivoBorrado = NombreArchivoBorrado.substring(0, NombreArchivoBorrado.length() - 4);
             
+            String DireccionBorrado = "./borrados/" + NombreArchivoBorrado + "borr" + ".txt";
+            
+            DefaultTableModel Modelo = new DefaultTableModel();
             fijo_fijo.setDireccion(DireccionArchivo);
-            fijo_fijo.CargarArchivoFijo(DireccionArchivo, DireccionBorrado);
+            DefaultTableModel ModeloTabla = fijo_fijo.CargarArchivoFijo(DireccionArchivo, DireccionBorrado, Modelo);
+            jt_ARLF_ModificarTabla.setModel(Modelo);
+            Modelo.removeRow(Modelo.getRowCount() - 1);
             
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto");
