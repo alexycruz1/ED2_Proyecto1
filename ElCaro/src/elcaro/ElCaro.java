@@ -486,7 +486,7 @@ public class ElCaro extends javax.swing.JFrame {
                 RandomAccessFile RAF = null,RAF2=null;
                 int cont1=0;
                 
-                //long temp = posicion*Integer.parseInt(fijo_fijo.TamañoCampo());
+                long temp = posicion*Integer.parseInt(fijo_fijo.TamañoCampo())*Integer.parseInt(fijo_fijo.NumeroCampos());
                 
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
@@ -498,6 +498,7 @@ public class ElCaro extends javax.swing.JFrame {
                         }
                         if (cont1 == 2+Integer.parseInt(fijo_fijo.NumeroCampos())) {
                             System.out.println(i);
+                            RAF2.seek(i+temp+1);
                             break;
                         }
                     }
@@ -509,6 +510,7 @@ public class ElCaro extends javax.swing.JFrame {
                     RAF.seek(RAF.length() - 1);
                     RAF.writeBytes("");
                     if (fijo_fijo.Borrados.empty()) {
+                        RAF.setLength(0);
                         RAF.writeBytes("$");
                     }
                 } catch (FileNotFoundException ex) {
