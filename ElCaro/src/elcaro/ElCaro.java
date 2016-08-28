@@ -399,56 +399,132 @@ public class ElCaro extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_ARLF_ModificarTablaMouseClicked
 
     private void jb_Agregar_Campo_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Agregar_Campo_FijoMouseClicked
-        // TODO add your handling code here:
-        int RevisarCampos = 0;
-        DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
-        Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
-        ArrayList<String> Campos = new ArrayList();
-        for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
-            String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
-                    jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+        if (fijo_fijo.Borrados.empty()) {
 
-            Campos.add(Campo);
-        }
-        for (int i = 0; i < Campos.size(); i++) {
-            if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
-                RevisarCampos++;
-            } else if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
-                RevisarCampos++;
+            int RevisarCampos = 0;
+            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+            Object[] Row = new Object[jt_ARLF_ModificarTabla.getColumnCount()];
+            ArrayList<String> Campos = new ArrayList();
+            for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
+                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
+                        jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+
+                Campos.add(Campo);
             }
-        }
-
-        if (RevisarCampos == 0) {
             for (int i = 0; i < Campos.size(); i++) {
-                System.out.println(fijo_fijo.TamañoCampo());
-                if (Campos.get(i).length() < Integer.parseInt(fijo_fijo.TamañoCampo())) {
-                    Row[i] = Campos.get(i);
-                    for (int j = 0; j < Integer.parseInt(fijo_fijo.TamañoCampo()) - Campos.get(i).length(); j++) {
-                        Row[i] = Row[i] + "-";
-                    }
-                } else {
-                    Row[i] = Campos.get(i);
+                if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                    RevisarCampos++;
+                } else if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                    RevisarCampos++;
                 }
+            }
+
+            if (RevisarCampos == 0) {
+                for (int i = 0; i < Campos.size(); i++) {
+                    System.out.println(fijo_fijo.TamañoCampo());
+                    if (Campos.get(i).length() < Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                        Row[i] = Campos.get(i);
+                        for (int j = 0; j < Integer.parseInt(fijo_fijo.TamañoCampo()) - Campos.get(i).length(); j++) {
+                            Row[i] = Row[i] + "-";
+                        }
+                    } else {
+                        Row[i] = Campos.get(i);
+                    }
+                    File Archivo = null;
+                    Archivo = new File(fijo_fijo.getDireccion());
+                    RandomAccessFile RAF = null;
+                    try {
+                        RAF = new RandomAccessFile(Archivo, "rw");
+                        fijo_fijo.Agregar(Row[i].toString(), RAF.length());
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (i == Campos.size() - 1) {
+                        ModeloTabla.addRow(Row);
+                    }
+
+                }
+                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+            } else {
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+            }
+        } else {
+            int posicion = fijo_fijo.Borrados.pop();
+
+            int RevisarCampos = 0;
+            String nuevo_c = "";
+            String[] row = new String[Integer.parseInt(fijo_fijo.NumeroCampos())];
+            ArrayList<String> Campos = new ArrayList();
+            for (int i = 0; i < jt_ARLF_ModificarTabla.getColumnCount(); i++) {
+                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLF_ModificarTabla.getModel().getColumnName(i),
+                        jt_ARLF_ModificarTabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+
+                Campos.add(Campo);
+                nuevo_c = nuevo_c + Campo;
+                for (int j = 0; j < Integer.parseInt(fijo_fijo.TamañoCampo()) - Campos.get(i).length(); j++) {
+                    nuevo_c = nuevo_c + "-";
+                    Campo = Campo + "-";
+                }
+                row[i] = Campo;
+            }
+            for (int i = 0; i < Campos.size(); i++) {
+                if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                    RevisarCampos++;
+                } else if (Campos.get(i).length() > Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                    RevisarCampos++;
+                }
+            }
+
+            if (RevisarCampos == 0) {
                 File Archivo = null;
-                Archivo = new File(fijo_fijo.getDireccion());
-                RandomAccessFile RAF = null;
+                File Archivo2 = null;
+                Archivo = new File("./borrados/" + fijo_fijo.Direccion.substring(0, fijo_fijo.Direccion.length() - 4) + "borr.txt");
+                Archivo2 = new File(fijo_fijo.Direccion);
+                RandomAccessFile RAF = null,RAF2=null;
+                int cont1=0;
+                
+                //long temp = posicion*Integer.parseInt(fijo_fijo.TamañoCampo());
+                
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
-                    fijo_fijo.Agregar(Row[i].toString(), RAF.length());
+                    RAF2 = new RandomAccessFile(Archivo2, "rw");
+                    for (int i = 0; i < RAF2.length(); i++) {
+                        RAF2.seek(i);
+                        if ((char)RAF2.readByte() == ';') {
+                            cont1++;
+                        }
+                        if (cont1 == 2+Integer.parseInt(fijo_fijo.NumeroCampos())) {
+                            System.out.println(i);
+                            break;
+                        }
+                    }
+                    RAF2.writeBytes(nuevo_c);
+                    RAF.seek(RAF.length() - 1);
+                    RAF.writeBytes("");
+                    RAF.seek(RAF.length() - 1);
+                    RAF.writeBytes("");
+                    RAF.seek(RAF.length() - 1);
+                    RAF.writeBytes("");
+                    if (fijo_fijo.Borrados.empty()) {
+                        RAF.writeBytes("$");
+                    }
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                if (i == Campos.size() - 1) {
-                    ModeloTabla.addRow(Row);
+                for (int i = 0; i < Integer.parseInt(fijo_fijo.NumeroCampos()); i++) {
+                    jt_ARLF_ModificarTabla.setValueAt(row[i], posicion, i);
                 }
-
+                
+                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+            } else {
+                fijo_fijo.Borrados.add(posicion);
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
             }
-            JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
-        } else {
-            JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
         }
     }//GEN-LAST:event_jb_Agregar_Campo_FijoMouseClicked
 
@@ -505,7 +581,7 @@ public class ElCaro extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(jd_Crear, "No se pudo modificar campo");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(jd_Crear, "En esta Posicion No Existe Un Registro");
         }
     }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
