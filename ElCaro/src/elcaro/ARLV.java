@@ -142,9 +142,11 @@ public class ARLV {
         } catch (IOException ex) {
             Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.setManejo(Manejo);
     }
     
-    public void Agregar(String Registro, int Lenght){
+    public void Agregar(String Registro, long Lenght){
         
     }
 }
