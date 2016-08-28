@@ -1,14 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package elcaro;
 
-/**
- *
- * @author Alexy Cruz
- */
+
 public class ARLV {
+    String Direccion;
+    char manejo;
+
+    public ARLV(String Direccion, char manejo) {
+        this.Direccion = Direccion;
+        this.manejo = manejo;
+    }
+
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String Direccion) {
+        this.Direccion = Direccion;
+    }
+
+    public char getManejo() {
+        return manejo;
+    }
+
+    public void setManejo(char manejo) {
+        this.manejo = manejo;
+    }
+    
+    
+    public int GetTamañoCampo(int indice){
+        return 0;
+    }
+    
+    public int GetNumCampo(){
+        return 0;
+    }
+    
+    public int GetPosInicial(){
+        return 0;
+    }
     
 }
