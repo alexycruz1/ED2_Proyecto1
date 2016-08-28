@@ -750,12 +750,13 @@ public class ElCaro extends javax.swing.JFrame {
 
         fileChooser.setCurrentDirectory(Archivo_Referencia);
         int returnValue = fileChooser.showOpenDialog(jd_Crear);
+        
+        File selectedFile = fileChooser.getSelectedFile();
+        String DireccionArchivo = selectedFile.getAbsolutePath();
+        fijo_fijo.setDireccion(DireccionArchivo);
 
         if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")
                 && fijo_fijo.IsFija(fileChooser.getSelectedFile())) {
-            File selectedFile = fileChooser.getSelectedFile();
-
-            String DireccionArchivo = selectedFile.getAbsolutePath();
             String NombreArchivoBorrado = selectedFile.getName();
             NombreArchivoBorrado = NombreArchivoBorrado.substring(0, NombreArchivoBorrado.length() - 4);
 
