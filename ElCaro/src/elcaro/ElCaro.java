@@ -33,23 +33,23 @@ public class ElCaro extends javax.swing.JFrame {
         initComponents();
         /*try {
             
-            String Direccion = "./nuevo.txt";
-            File Archivo = null;
-            Archivo = new File(Direccion);
-            try {
-                RandomAccessFile RAF = new RandomAccessFile(Archivo, "rw");
-                RAF.writeBytes("mi mama me mima");
+         String Direccion = "./nuevo.txt";
+         File Archivo = null;
+         Archivo = new File(Direccion);
+         try {
+         RandomAccessFile RAF = new RandomAccessFile(Archivo, "rw");
+         RAF.writeBytes("mi mama me mima");
 
-                RAF.seek(5);
-                String Nueva = "Mi mama no me mima";
-                RAF.writeBytes(Nueva);
+         RAF.seek(5);
+         String Nueva = "Mi mama no me mima";
+         RAF.writeBytes(Nueva);
 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+         } catch (FileNotFoundException ex) {
+         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         } catch (IOException ex) {
+         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
     }
 
     /**
@@ -391,6 +391,8 @@ public class ElCaro extends javax.swing.JFrame {
 
             jpm_Menu1.show(evt.getComponent(), evt.getX(),
                     evt.getY());
+        } else {
+            borrar_registro.setEnabled(false);
         }
 
         System.out.println(Row + " " + Column);
@@ -452,53 +454,59 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jpm1_Menu1_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm1_Menu1_ModificarActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
+        if (jt_ARLF_ModificarTabla.getValueAt(jt_ARLF_ModificarTabla.getSelectedRow(),
+                jt_ARLF_ModificarTabla.getSelectedColumn()) != " ") {
 
-        String Campo = ModeloTabla.getColumnName(jt_ARLF_ModificarTabla.getSelectedColumn());
+            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLF_ModificarTabla.getModel();
 
-        String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
-                JOptionPane.INFORMATION_MESSAGE);
-        int Concatenar = Integer.parseInt(fijo_fijo.TamañoCampo()) - ModificarCampo.length();
-        for (int j = 0; j < Concatenar; j++) {
-            ModificarCampo += "-";
-        }
+            String Campo = ModeloTabla.getColumnName(jt_ARLF_ModificarTabla.getSelectedColumn());
 
-        if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
-            jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
-                    jt_ARLF_ModificarTabla.getSelectedColumn());
+            String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
+                    JOptionPane.INFORMATION_MESSAGE);
+            int Concatenar = Integer.parseInt(fijo_fijo.TamañoCampo()) - ModificarCampo.length();
+            for (int j = 0; j < Concatenar; j++) {
+                ModificarCampo += "-";
+            }
 
-            File Archivo = null;
-            Archivo = new File(fijo_fijo.getDireccion());
-            RandomAccessFile RAF = null;
-            try {
-                RAF = new RandomAccessFile(Archivo, "rw");
-                String TamañoCampo = "";
-                int ContadorDelimitador = 0;
-                for (int i = 0; i < RAF.length(); i++) {
-                    RAF.seek(i);
-                    char TamañoCampoTemp = (char) RAF.readByte();
-                    if (TamañoCampoTemp != ';') {
-                        if (ContadorDelimitador == 4) {
-                            int Posicion = (jt_ARLF_ModificarTabla.getSelectedRow()
-                                    * Integer.parseInt(fijo_fijo.NumeroCampos())
-                                    * Integer.parseInt(fijo_fijo.TamañoCampo()))
-                                    + (jt_ARLF_ModificarTabla.getSelectedColumn()
-                                    * Integer.parseInt(fijo_fijo.TamañoCampo()));
-                            RAF.seek(i + Posicion);
-                            RAF.writeBytes(ModificarCampo);
+            if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
+                jt_ARLF_ModificarTabla.setValueAt(ModificarCampo, jt_ARLF_ModificarTabla.getSelectedRow(),
+                        jt_ARLF_ModificarTabla.getSelectedColumn());
+
+                File Archivo = null;
+                Archivo = new File(fijo_fijo.getDireccion());
+                RandomAccessFile RAF = null;
+                try {
+                    RAF = new RandomAccessFile(Archivo, "rw");
+                    String TamañoCampo = "";
+                    int ContadorDelimitador = 0;
+                    for (int i = 0; i < RAF.length(); i++) {
+                        RAF.seek(i);
+                        char TamañoCampoTemp = (char) RAF.readByte();
+                        if (TamañoCampoTemp != ';') {
+                            if (ContadorDelimitador == 4) {
+                                int Posicion = (jt_ARLF_ModificarTabla.getSelectedRow()
+                                        * Integer.parseInt(fijo_fijo.NumeroCampos())
+                                        * Integer.parseInt(fijo_fijo.TamañoCampo()))
+                                        + (jt_ARLF_ModificarTabla.getSelectedColumn()
+                                        * Integer.parseInt(fijo_fijo.TamañoCampo()));
+                                RAF.seek(i + Posicion);
+                                RAF.writeBytes(ModificarCampo);
+                                ContadorDelimitador++;
+                            }
+                        } else {
                             ContadorDelimitador++;
                         }
-                    } else {
-                        ContadorDelimitador++;
                     }
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo modificar campo");
             }
-        } else {
-            JOptionPane.showMessageDialog(jd_Crear, "No se pudo modificar campo");
+        }else{
+            JOptionPane.showMessageDialog(jd_Crear, "En esta Posicion No Existe Un Registro");
         }
     }//GEN-LAST:event_jpm1_Menu1_ModificarActionPerformed
 
@@ -510,7 +518,8 @@ public class ElCaro extends javax.swing.JFrame {
     }//GEN-LAST:event_seleccionar_rActionPerformed
 
     private void borrar_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar_registroActionPerformed
-        if (borrar_registro.isEnabled()) {
+        if (borrar_registro.isEnabled() && jt_ARLF_ModificarTabla.getValueAt(jt_ARLF_ModificarTabla.getSelectedRow(),
+                jt_ARLF_ModificarTabla.getSelectedColumn()) != " ") {
             int seleccionado = jt_ARLF_ModificarTabla.getSelectedRow();
             fijo_fijo.getBorrados().push(seleccionado);
             String direccion = "";
@@ -529,6 +538,7 @@ public class ElCaro extends javax.swing.JFrame {
                     RAF2.seek(RAF2.length() - 1);
                     RAF2.writeBytes(Integer.toString(seleccionado) + ";");
                 } else {
+                    RAF2.seek(RAF2.length());
                     RAF2.writeBytes(Integer.toString(seleccionado) + ";");
                 }
 
@@ -542,7 +552,10 @@ public class ElCaro extends javax.swing.JFrame {
                 jt_ARLF_ModificarTabla.setValueAt(" ", jt_ARLF_ModificarTabla.getSelectedRow(),
                         jt_ARLF_ModificarTabla.getSelectedColumn() + i);
             }
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!");
         }
+        borrar_registro.setEnabled(false);
     }//GEN-LAST:event_borrar_registroActionPerformed
 
     private void jb_Cargar_tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Cargar_tabla_FijoMouseClicked
@@ -558,13 +571,13 @@ public class ElCaro extends javax.swing.JFrame {
 
         if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")) {
             File selectedFile = fileChooser.getSelectedFile();
-            
+
             String DireccionArchivo = selectedFile.getAbsolutePath();
             String DireccionBorrado = "./borrados/" + selectedFile.getName() + ".txt";
-            
+
             fijo_fijo.setDireccion(DireccionArchivo);
             fijo_fijo.CargarArchivoFijo(DireccionArchivo, DireccionBorrado);
-            
+
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto");
         }
