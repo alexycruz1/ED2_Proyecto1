@@ -282,7 +282,7 @@ public class ARLV {
                     if (ContadorCampo == Registro) {
                         char Revisar = (char) RAF.readByte();
                         if (Revisar != '=') {
-                            LongitudCampo++;
+                            //LongitudCampo++;
                         } else {
                             ContadorCampo++;
                         }
@@ -312,7 +312,7 @@ public class ARLV {
                             Temp += ConcatNumber;
                             i++;
                         }
-                        LongitudCampo = Integer.parseInt(Temp);
+                        //LongitudCampo = Integer.parseInt(Temp);
                     } else {
                         for (int j = 0; j < 3; j++) {
                             RAF.seek(i);
