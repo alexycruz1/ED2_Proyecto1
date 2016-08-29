@@ -115,10 +115,8 @@ public class ARLV {
                     }
                 }
 
-                if (Columna == 0) {
-                    String Nombre = GetNombreColumna(Columna);
-                    Campo = Campo.substring(0, Campo.length() - Nombre.length());
-                }
+                String Nombre = GetNombreColumna(Columna);
+                Campo = Campo.substring(0, Campo.length() - Nombre.length());
 
                 LongitudCampo = Campo.length();
             } catch (FileNotFoundException ex) {
