@@ -719,9 +719,6 @@ public class ElCaro extends javax.swing.JFrame {
             String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
                     JOptionPane.INFORMATION_MESSAGE);
             int Concatenar = Integer.parseInt(fijo_fijo.TamañoCampo()) - ModificarCampo.length();
-            for (int j = 0; j < Concatenar; j++) {
-                ModificarCampo += "-";
-            }
 
             if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
                 jt_ARLF_Tabla.setValueAt(ModificarCampo, jt_ARLF_Tabla.getSelectedRow(),
@@ -746,6 +743,11 @@ public class ElCaro extends javax.swing.JFrame {
                                         * Integer.parseInt(fijo_fijo.TamañoCampo()));
                                 RAF.seek(i + Posicion);
                                 RAF.writeBytes(ModificarCampo);
+                                RAF.seek(i + Posicion + ModificarCampo.length());
+                                for (int j = 0; j < Concatenar; j++) {
+                                    RAF.seek(i + j + Posicion + ModificarCampo.length());
+                                    RAF.writeBytes("-");
+                                }
                                 ContadorDelimitador++;
                             }
                         } else {
@@ -1123,7 +1125,7 @@ public class ElCaro extends javax.swing.JFrame {
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
                     RAF.seek(Lenght);
-                    RAF.writeBytes(variable_variable.GetNombreCampo(indice)+"="+Registro);
+                    RAF.writeBytes(variable_variable.GetNombreColumna(indice)+"="+Registro);
 
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);

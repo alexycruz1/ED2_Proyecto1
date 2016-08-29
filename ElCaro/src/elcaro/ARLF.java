@@ -59,7 +59,7 @@ public class ARLF {
         }
     }
 
-    public void Modificar(String Campo, long Posicion) {
+    public void ModificarARLF(String Campo, long Posicion) {
         File Archivo = null;
         Archivo = new File(Direccion);
         RandomAccessFile RAF = null;
