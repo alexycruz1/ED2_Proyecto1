@@ -87,26 +87,35 @@ public class ARLV {
             RandomAccessFile RAF = null;
             int PosicionInicial = GetPosInicial();
             int ContadorCampo = -1;
+            String Campo = "";
+            int Columna = -1;
 
             try {
                 RAF = new RandomAccessFile(Archivo, "rw");
 
                 for (int i = PosicionInicial; i < RAF.length(); i++) {
                     RAF.seek(i);
+                    if (Columna > 2) {
+                        Columna = -1;
+                    }
                     if (ContadorCampo == indice) {
                         char Revisar = (char) RAF.readByte();
                         if (Revisar != '=') {
-                            LongitudCampo++;
+                            Campo += Revisar;
                         } else {
                             ContadorCampo++;
+                            Columna++;
                         }
                     } else {
                         char Revisar = (char) RAF.readByte();
                         if (Revisar == '=') {
                             ContadorCampo++;
+                            Columna++;
                         }
                     }
                 }
+                
+                
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
