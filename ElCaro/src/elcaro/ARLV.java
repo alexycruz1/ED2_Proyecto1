@@ -245,6 +245,29 @@ public class ARLV {
     }
 
     public void Agregar(String Registro, long Lenght) {
+        if (manejo == 'D') {
+            File Archivo = null;
+            Archivo = new File(Direccion);
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF.seek(Lenght);
+                RAF.writeBytes(Registro + "&");
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (manejo == 'K') {
 
+            } else {
+                if (manejo == 'I') {
+
+                }
+
+            }
+        }
     }
 }
