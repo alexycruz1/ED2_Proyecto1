@@ -115,7 +115,7 @@ public class ARLV {
                     }
                 }
 
-                if (Columna == 1) {
+                if (Columna == 0) {
                     String Nombre = GetNombreColumna(Columna);
                     Campo = Campo.substring(0, Campo.length() - Nombre.length());
                 }
