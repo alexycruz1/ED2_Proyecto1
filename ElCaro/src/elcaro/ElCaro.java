@@ -86,9 +86,9 @@ public class ElCaro extends javax.swing.JFrame {
         jsp_ARLV_NumeroCampos = new javax.swing.JSpinner();
         jb_ARLV_CrearTabla = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jrb_ARLV_Delimitador = new javax.swing.JRadioButton();
-        jrb_ARLV_Indicador = new javax.swing.JRadioButton();
-        jrb_ARLV_KeyValue = new javax.swing.JRadioButton();
+        D = new javax.swing.JRadioButton();
+        I = new javax.swing.JRadioButton();
+        K = new javax.swing.JRadioButton();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_ARLV_tabla = new javax.swing.JTable();
@@ -244,15 +244,15 @@ public class ElCaro extends javax.swing.JFrame {
 
         jLabel9.setText("Manejo de Tabla");
 
-        bg_ARLV_ManejoTabla.add(jrb_ARLV_Delimitador);
-        jrb_ARLV_Delimitador.setSelected(true);
-        jrb_ARLV_Delimitador.setText("Delimitador");
+        bg_ARLV_ManejoTabla.add(D);
+        D.setSelected(true);
+        D.setText("Delimitador");
 
-        bg_ARLV_ManejoTabla.add(jrb_ARLV_Indicador);
-        jrb_ARLV_Indicador.setText("Indicador de longitud");
+        bg_ARLV_ManejoTabla.add(I);
+        I.setText("Indicador de longitud");
 
-        bg_ARLV_ManejoTabla.add(jrb_ARLV_KeyValue);
-        jrb_ARLV_KeyValue.setText("Key Value");
+        bg_ARLV_ManejoTabla.add(K);
+        K.setText("Key Value");
 
         jt_ARLV_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -341,11 +341,11 @@ public class ElCaro extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jrb_ARLV_Indices_No))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jrb_ARLV_Delimitador)
+                                        .addComponent(D)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jrb_ARLV_KeyValue)
+                                        .addComponent(K)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jrb_ARLV_Indicador)))))
+                                        .addComponent(I)))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -367,9 +367,9 @@ public class ElCaro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jrb_ARLV_Delimitador)
-                    .addComponent(jrb_ARLV_KeyValue)
-                    .addComponent(jrb_ARLV_Indicador))
+                    .addComponent(D)
+                    .addComponent(K)
+                    .addComponent(I))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -847,8 +847,17 @@ public class ElCaro extends javax.swing.JFrame {
     private void jb_ARLV_CrearTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ARLV_CrearTablaMouseClicked
         // TODO add your handling code here:
         String Direccion = jt_ARLV_Nombre.getText() + ".txt";
-        String Borrado = "./borrados/" + jt_ARLV_Nombre.getText() + "borr" + ".txt";
+        String Borrado = "./borradosvv/" + jt_ARLV_Nombre.getText() + "borr" + ".txt";
         variable_variable.setDireccion(Direccion);
+        if (D.isSelected()) {
+            variable_variable.setManejo('D');
+        }else{
+            if (K.isSelected()) {
+                variable_variable.setManejo('K');
+            }else{
+                variable_variable.setManejo('I');
+            }
+        }
         System.out.println(variable_variable.getDireccion());
         File Archivo = null, Archivo_b = null;
         Archivo = new File(Direccion);
@@ -910,43 +919,48 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         if (variable_variable.borrados.isEmpty()) {
-                int RevisarCampos = 0;
-                DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLV_tabla.getModel();
-                Object[] Row = new Object[jt_ARLV_tabla.getColumnCount()];
-                ArrayList<String> Campos = new ArrayList();
-                for (int i = 0; i < jt_ARLV_tabla.getColumnCount(); i++) {
-                    String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getModel().getColumnName(i),
-                            jt_ARLV_tabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
-
-                    Campos.add(Campo);
-                }
+            int RevisarCampos = 0;
+            DefaultTableModel ModeloTabla = (DefaultTableModel) jt_ARLV_tabla.getModel();
+            Object[] Row = new Object[jt_ARLV_tabla.getColumnCount()];
+            ArrayList<String> Campos = new ArrayList();
+            for (int i = 0; i < jt_ARLV_tabla.getColumnCount(); i++) {
+                String Campo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getModel().getColumnName(i),
+                jt_ARLV_tabla.getModel().getColumnName(i), JOptionPane.INFORMATION_MESSAGE);
+                Row[i] = Campo;
+                Campos.add(Campo);
+            }
+            for (int i = 0; i < Campos.size(); i++) {
+                RevisarCampos++;
+            }
+            if (RevisarCampos != 0) {
                 for (int i = 0; i < Campos.size(); i++) {
-                        RevisarCampos++;
-                }
-                if (RevisarCampos == 0) {
-                    for (int i = 0; i < Campos.size(); i++) {
-                        File Archivo = null;
-                        Archivo = new File(variable_variable.getDireccion());
-                        RandomAccessFile RAF = null;
-                        try {
-                            RAF = new RandomAccessFile(Archivo, "rw");
-                            variable_variable.Agregar(Row[i].toString(), RAF.length());
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                    File Archivo = null;
+                    Archivo = new File(variable_variable.getDireccion());
+                    RandomAccessFile RAF = null;
+                    try {
+                        RAF = new RandomAccessFile(Archivo, "rw");
+                        Agregard(Row[i].toString(), RAF.length());
+                        if (i == Campos.size()-1) {
+                           RAF.seek(RAF.length());
+                            RAF.writeBytes("'"); 
                         }
-
-                        if (i == Campos.size() - 1) {
-                            ModeloTabla.addRow(Row);
-                        }
-
+                        
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
-                } else {
-                    JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+
+                    if (i == Campos.size() - 1) {
+                        ModeloTabla.addRow(Row);
+                    }
+
                 }
-            
+                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+            } else {
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+            }
+
         } else {
 
         }
@@ -989,6 +1003,9 @@ public class ElCaro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton D;
+    private javax.swing.JRadioButton I;
+    private javax.swing.JRadioButton K;
     private javax.swing.ButtonGroup bg_ARLV_ManejoTabla;
     private javax.swing.ButtonGroup bg_ARLV_TablaIndices;
     private javax.swing.JButton jButton1;
@@ -1027,11 +1044,8 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.JMenuItem jpm_ARLV_Seleccionar;
     private javax.swing.JMenuItem jpm_borrar_registro_ARLF;
     private javax.swing.JMenuItem jpm_seleccionar_ARLF;
-    private javax.swing.JRadioButton jrb_ARLV_Delimitador;
-    private javax.swing.JRadioButton jrb_ARLV_Indicador;
     private javax.swing.JRadioButton jrb_ARLV_Indices_No;
     private javax.swing.JRadioButton jrb_ARLV_Indices_Si;
-    private javax.swing.JRadioButton jrb_ARLV_KeyValue;
     private javax.swing.JSpinner jsp_ARLF_LongitudCampos;
     private javax.swing.JSpinner jsp_ARLF_NumeroCampos;
     private javax.swing.JSpinner jsp_ARLV_NumeroCampos;
@@ -1042,4 +1056,31 @@ public class ElCaro extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     ARLF fijo_fijo = new ARLF();
     ARLV variable_variable = new ARLV();
+
+    public void Agregard(String Registro, long Lenght) {
+        if (variable_variable.getManejo() == 'D') {
+            File Archivo = null;
+            Archivo = new File(variable_variable.getDireccion());
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF.seek(Lenght);
+                RAF.writeBytes(Registro + "&");
+                
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (variable_variable.getManejo() == 'K') {
+
+            } else {
+                if (variable_variable.getManejo() == 'I') {
+
+                }
+
+            }
+        }
+    }
 }
