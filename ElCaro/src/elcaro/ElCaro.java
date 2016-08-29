@@ -187,7 +187,7 @@ public class ElCaro extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jb_Agregar_Campo_Fijo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jb_Cargar_tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jb_Cargar_tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(259, 259, 259)
                                 .addComponent(jLabel3)))
@@ -214,14 +214,14 @@ public class ElCaro extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jb_Cargar_tabla_Fijo)
-                            .addComponent(jb_Agregar_Campo_Fijo)))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jb_Crear_Tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jb_Agregar_Campo_Fijo)
+                    .addComponent(jb_Cargar_tabla_Fijo))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -439,6 +439,11 @@ public class ElCaro extends javax.swing.JFrame {
         jpm_ARLF.add(jpm_borrar_registro_ARLF);
 
         jpm_ARLV_Modificar.setText("Modificar");
+        jpm_ARLV_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpm_ARLV_ModificarActionPerformed(evt);
+            }
+        });
         jpm_ARLV.add(jpm_ARLV_Modificar);
 
         jpm_ARLV_Seleccionar.setText("Seleccionar");
@@ -564,7 +569,7 @@ public class ElCaro extends javax.swing.JFrame {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         jt_ARLF_Tabla.setModel(Modelo);
     }//GEN-LAST:event_jb_Crear_Tabla_FijoMouseClicked
 
@@ -851,28 +856,33 @@ public class ElCaro extends javax.swing.JFrame {
         // TODO add your handling code here:
         String Direccion = jt_ARLV_Nombre.getText() + ".txt";
         String Borrado = "./borradosvv/" + jt_ARLV_Nombre.getText() + "borr" + ".txt";
+        String Cargado = "./cargar/" + jt_ARLV_Nombre.getText() + "car.txt";
+
         variable_variable.setDireccion(Direccion);
         if (D.isSelected()) {
             variable_variable.setManejo('D');
+        } else if (K.isSelected()) {
+            variable_variable.setManejo('K');
         } else {
-            if (K.isSelected()) {
-                variable_variable.setManejo('K');
-            } else {
-                variable_variable.setManejo('I');
-            }
+            variable_variable.setManejo('I');
         }
 
         String Manejo = "";
         Manejo += variable_variable.getManejo();
         System.out.println(variable_variable.getDireccion());
-        File Archivo = null, Archivo_b = null;
+        File Archivo = null, Archivo_b = null, Archivo_c;
         Archivo = new File(Direccion);
         Archivo_b = new File(Borrado);
+        Archivo_c = new File(Cargado);
         RandomAccessFile RAF = null;
         RandomAccessFile RAF2 = null;
+        RandomAccessFile RAF3 = null;
         try {
             RAF = new RandomAccessFile(Archivo, "rw");
             RAF2 = new RandomAccessFile(Archivo_b, "rw");
+            RAF3 = new RandomAccessFile(Archivo_c, "rw");
+            RAF3.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
+            RAF3.writeBytes(";");
             RAF.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
             RAF2.writeBytes("$");
             RAF.seek(RAF.length());
@@ -895,8 +905,11 @@ public class ElCaro extends javax.swing.JFrame {
             Modelo.addColumn(NombreCampo);
             try {
                 RAF.seek(RAF.length());
+                RAF3.seek(RAF3.length());
                 RAF.writeBytes(NombreCampo);
+                RAF3.writeBytes(NombreCampo);
                 RAF.writeBytes(":");
+                RAF3.writeBytes(";");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -942,19 +955,24 @@ public class ElCaro extends javax.swing.JFrame {
             }
             if (RevisarCampos != 0) {
                 for (int i = 0; i < Campos.size(); i++) {
-                    File Archivo = null;
+                    File Archivo = null, archivo2 = null;
                     Archivo = new File(variable_variable.getDireccion());
+                    archivo2 = new File("./cargar/" + variable_variable.getDireccion().substring(0, variable_variable.getDireccion().length() - 4) + "car.txt");
+
                     RandomAccessFile RAF = null;
+                    RandomAccessFile RAF2 = null;
                     try {
                         RAF = new RandomAccessFile(Archivo, "rw");
+                        RAF2 = new RandomAccessFile(archivo2, "rw");
                         Agregard(Row[i].toString(), RAF.length(), i);
 
                         RAF.seek(RAF.length());
-                        if (i== Campos.size()-1) {
+                        RAF2.seek(RAF2.length());
+                        RAF2.writeBytes(Row[i].toString() + ":");
+                        if (i == Campos.size() - 1) {
                             RAF.writeBytes("'");
                         }
-                        
-                       
+
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
@@ -966,11 +984,11 @@ public class ElCaro extends javax.swing.JFrame {
                     }
 
                 }
-                
+
                 //System.out.println(variable_variable.GetTamañoCampo(0));
                 //System.out.println(variable_variable.GetTamañoCampo(1));
                 JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
-                
+
             } else {
                 JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
             }
@@ -997,18 +1015,93 @@ public class ElCaro extends javax.swing.JFrame {
 
         if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")
                 && variable_variable.IsVariable(fileChooser.getSelectedFile())) {
-            String NombreArchivoBorrado = selectedFile.getName();
-            NombreArchivoBorrado = NombreArchivoBorrado.substring(0, NombreArchivoBorrado.length() - 4);
+            String NombreArchivo = selectedFile.getName().substring(0, selectedFile.getName().length() - 4);
+            String Cargar = "./Cargar/" + NombreArchivo + "car.txt";
+            File ArchivoCargar = new File(Cargar);
+            RandomAccessFile RAF = null;
 
-            String DireccionBorrado = "./borradosvv/" + NombreArchivoBorrado + "borr" + ".txt";
+            try {
+                RAF = new RandomAccessFile(ArchivoCargar, "rw");
+                int NumeroCampos = 0;
+                ArrayList Headers = new ArrayList();
+                ArrayList Campos = new ArrayList();
+                int PosicionInicial = 0;
+                int ContadorDelimitador = 0;
 
-            DefaultTableModel Modelo = new DefaultTableModel();
-            variable_variable.setDireccion(DireccionArchivo);
-            DefaultTableModel ModeloTabla = variable_variable.CargarArchivoVariable(DireccionArchivo, DireccionBorrado, Modelo);
-            jt_ARLV_tabla.setModel(Modelo);
-            Modelo.removeRow(Modelo.getRowCount() - 1);
-            String NombreArchivoVariable = selectedFile.getName();
-            variable_variable.setDireccion(NombreArchivoVariable);
+                for (int i = 0; i < RAF.length(); i++) {
+                    RAF.seek(i);
+                    char CharRevisar = (char) RAF.readByte();
+                    if (CharRevisar != ';' && ContadorDelimitador == 0) {
+                        String Temp = "";
+                        Temp += CharRevisar;
+                        System.out.println("Asi va el Numero de campos: " + Temp);
+                        NumeroCampos = Integer.parseInt(Temp);
+                        PosicionInicial = i;
+                    } else {
+                        ContadorDelimitador++;
+                    }
+                }
+
+                String Temp = "";
+                ContadorDelimitador = 0;
+
+                for (int i = PosicionInicial + 1; i < RAF.length(); i++) {
+                    RAF.seek(i);
+                    char CharRevisar = (char) RAF.readByte();
+
+                    if (CharRevisar != ';' && ContadorDelimitador < 2) {
+                        Temp += CharRevisar;
+                        System.out.println("Asi va el header: " + Temp);
+                    } else {
+                        if (!Temp.isEmpty()) {
+                            Headers.add(Temp);
+                        }
+                        Temp = "";
+                        PosicionInicial = i + 1;
+                    }
+                }
+
+                Temp = "";
+                System.out.println("Posicion Inicial: " + PosicionInicial);
+                for (int i = PosicionInicial; i < RAF.length(); i++) {
+                    RAF.seek(i);
+                    char CharRevisar = (char) RAF.readByte();
+
+                    if (CharRevisar != ':') {
+                        Temp += CharRevisar;
+                        System.out.println("Asi va el Campo: " + Temp);
+                    } else {
+                        Campos.add(Temp);
+                        Temp = "";
+
+                    }
+                }
+
+                DefaultTableModel Modelo = new DefaultTableModel();
+
+                for (int i = 0; i < Headers.size(); i++) {
+                    Modelo.addColumn(Headers.get(i).toString());
+                }
+
+                Object[] Row = new Object[Headers.size()];
+                for (int i = 0; i < Campos.size(); i++) {
+                    System.out.println("Campo: " + Campos.get(i).toString());
+                }
+
+                for (int i = 0; i < Campos.size() / Headers.size(); i++) {
+                    for (int j = 0; j < Headers.size(); j++) {
+                        Row[j] = Campos.get(j);
+                    }
+                    Modelo.addRow(Row);
+                }
+
+                jt_ARLV_tabla.setModel(Modelo);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud Variable");
@@ -1060,6 +1153,75 @@ public class ElCaro extends javax.swing.JFrame {
         }
         jpm_ARLV_Borrar_Registro.setEnabled(false);
     }//GEN-LAST:event_jpm_ARLV_Borrar_RegistroActionPerformed
+
+    private void jpm_ARLV_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm_ARLV_ModificarActionPerformed
+        // TODO add your handling code here:
+        String Campo = "";
+        String Comparar = "";
+        Campo = (jt_ARLV_tabla.getValueAt(jt_ARLV_tabla.getSelectedRow(), jt_ARLV_tabla.getSelectedColumn())).toString();
+        int Lenght = Campo.length();
+        char InicioCampo = Campo.charAt(0);
+
+        String Direccion = variable_variable.getDireccion();
+        File Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+        int ContadorCampo = 0;
+        int Seek = 0;
+
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+
+            for (int i = 0; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char CharRevisar = (char) RAF.readByte();
+                if (CharRevisar == InicioCampo) {
+                    for (int j = 0; j < Campo.length(); j++) {
+                        RAF.seek(i + j);
+                        char CharRevisar2 = (char) RAF.readByte();
+                        Comparar += CharRevisar2;
+                    }
+                    if (Comparar.equals(Campo)) {
+                        Seek = i;
+                        break;
+                    } else {
+                        Comparar = "";
+                    }
+                }
+            }
+
+            String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn());
+
+            while (ModificarCampo.length() > Campo.length()) {
+                JOptionPane.showMessageDialog(jd_Crear, "El dato que desea ingresar es muy grande");
+                ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn());
+            }
+
+            if (ModificarCampo.length() == Campo.length()) {
+                RAF.seek(Seek);
+                RAF.writeBytes(ModificarCampo);
+
+                jt_ARLV_tabla.setValueAt(ModificarCampo, jt_ARLV_tabla.getSelectedRow(), jt_ARLV_tabla.getSelectedColumn());
+            } else {
+                for (int i = 0; i < Campo.length() - ModificarCampo.length(); i++) {
+                    ModificarCampo += "-";
+                }
+
+                RAF.seek(Seek);
+                RAF.writeBytes(ModificarCampo);
+
+                jt_ARLV_tabla.setValueAt(ModificarCampo, jt_ARLV_tabla.getSelectedRow(), jt_ARLV_tabla.getSelectedColumn());
+            }
+            System.out.println("Campo = " + Campo);
+            System.out.println("Comparar = " + Comparar);
+            System.out.println("Seek= " + Seek);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jpm_ARLV_ModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1153,7 +1315,7 @@ public class ElCaro extends javax.swing.JFrame {
 
     public void Agregard(String Registro, long Lenght, int indice) {
         if (variable_variable.getManejo() == 'D') {
-            
+
             File Archivo = null;
             Archivo = new File(variable_variable.getDireccion());
             RandomAccessFile RAF = null;
@@ -1167,50 +1329,42 @@ public class ElCaro extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            if (variable_variable.getManejo() == 'K') {
-                File Archivo = null;
-                Archivo = new File(variable_variable.getDireccion());
-                RandomAccessFile RAF = null;
-                try {
-                    RAF = new RandomAccessFile(Archivo, "rw");
-                    RAF.seek(Lenght);
-                    RAF.writeBytes(variable_variable.GetNombreColumna(indice) + "=" + Registro);
+        } else if (variable_variable.getManejo() == 'K') {
+            File Archivo = null;
+            Archivo = new File(variable_variable.getDireccion());
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF.seek(Lenght);
+                RAF.writeBytes(variable_variable.GetNombreColumna(indice) + "=" + Registro);
 
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (variable_variable.getManejo() == 'I') {
+            int t_campo = Registro.length();
+
+            File Archivo = null;
+            Archivo = new File(variable_variable.getDireccion());
+            RandomAccessFile RAF = null;
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF.seek(Lenght);
+                if (Integer.toString(t_campo).length() == 3) {
+                    RAF.writeBytes(t_campo + Registro);
+                } else if (Integer.toString(t_campo).length() == 2) {
+                    RAF.writeBytes("0" + t_campo + Registro);
+                } else {
+                    RAF.writeBytes("00" + t_campo + Registro);
                 }
 
-            } else {
-                if (variable_variable.getManejo() == 'I') {
-                    int t_campo = Registro.length();
-                    
-                    File Archivo = null;
-                    Archivo = new File(variable_variable.getDireccion());
-                    RandomAccessFile RAF = null;
-                    try {
-                        RAF = new RandomAccessFile(Archivo, "rw");
-                        RAF.seek(Lenght);
-                        if (Integer.toString(t_campo).length() == 3) {
-                            RAF.writeBytes(t_campo + Registro);
-                        }else{
-                            if (Integer.toString(t_campo).length() == 2) {
-                                RAF.writeBytes("0"+t_campo + Registro);
-                            }else{
-                                RAF.writeBytes("00"+t_campo + Registro);
-                            }
-                        }
-                        
-
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

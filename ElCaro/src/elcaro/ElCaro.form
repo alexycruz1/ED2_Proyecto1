@@ -72,7 +72,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jb_Agregar_Campo_Fijo" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jb_Cargar_tabla_Fijo" min="-2" pref="123" max="-2" attributes="0"/>
+                                          <Component id="jb_Cargar_tabla_Fijo" min="-2" pref="160" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
@@ -110,16 +110,16 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jb_Cargar_tabla_Fijo" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jb_Agregar_Campo_Fijo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                   <Component id="jb_Crear_Tabla_Fijo" min="-2" pref="44" max="-2" attributes="0"/>
                               </Group>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jb_Agregar_Campo_Fijo" min="-2" max="-2" attributes="0"/>
+                              <Component id="jb_Cargar_tabla_Fijo" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
@@ -521,6 +521,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jpm_ARLV_ModificarActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jpm_ARLV_Seleccionar">
           <Properties>
