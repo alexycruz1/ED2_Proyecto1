@@ -626,7 +626,7 @@ public class ElCaro extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 JOptionPane.showMessageDialog(jd_Crear, "Se modifico un campo", "OPERACION EXITOSA",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -682,7 +682,7 @@ public class ElCaro extends javax.swing.JFrame {
                         jt_ARLF_Tabla.getSelectedColumn() + i);
             }
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!", "ERROR", 
+            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!", "ERROR",
                     JOptionPane.ERROR_MESSAGE);
         }
         jpm_borrar_registro_ARLF.setEnabled(false);
@@ -913,7 +913,6 @@ public class ElCaro extends javax.swing.JFrame {
                     if (CharRevisar != ';' && ContadorDelimitador == 0) {
                         String Temp = "";
                         Temp += CharRevisar;
-                        System.out.println("Asi va el Numero de campos: " + Temp);
                         NumeroCampos = Integer.parseInt(Temp);
                         PosicionInicial = i;
                     } else {
@@ -930,7 +929,6 @@ public class ElCaro extends javax.swing.JFrame {
 
                     if (CharRevisar != ';' && ContadorDelimitador < 2) {
                         Temp += CharRevisar;
-                        System.out.println("Asi va el header: " + Temp);
                     } else {
                         if (!Temp.isEmpty()) {
                             Headers.add(Temp);
@@ -941,14 +939,12 @@ public class ElCaro extends javax.swing.JFrame {
                 }
 
                 Temp = "";
-                System.out.println("Posicion Inicial: " + PosicionInicial);
                 for (int i = PosicionInicial; i < RAF.length(); i++) {
                     RAF.seek(i);
                     char CharRevisar = (char) RAF.readByte();
 
                     if (CharRevisar != ':') {
                         Temp += CharRevisar;
-                        System.out.println("Asi va el Campo: " + Temp);
                     } else {
                         Campos.add(Temp);
                         Temp = "";
@@ -962,16 +958,40 @@ public class ElCaro extends javax.swing.JFrame {
                     Modelo.addColumn(Headers.get(i).toString());
                 }
 
-                Object[] Row = new Object[Headers.size()];
-                for (int i = 0; i < Campos.size(); i++) {
-                    System.out.println("Campo: " + Campos.get(i).toString());
-                }
+                Object[] Row = new Object[Campos.size()];
 
-                for (int i = 0; i < Campos.size() / Headers.size(); i++) {
-                    for (int j = 0; j < Headers.size(); j++) {
-                        Row[j] = Campos.get(j);
+                jt_ARLV_tabla.setModel(Modelo);
+
+                //cargar
+                int Iteraciones = Campos.size();
+                System.out.println("Iteraciones: " + Campos.size());
+                int ContadorCargar = 0;
+                int Fila = 0;
+
+                for (int i = 0; i < Campos.size(); i++) {
+                    if (ContadorCargar < NumeroCampos) {
+                        Row[i] = Campos.get(i).toString();
+                        System.out.println("Fila: " + Fila + " Campo Agregado: " + Campos.get(i).toString());
+                        System.out.println("Numero Campo: " + NumeroCampos);
+                        System.out.println("Contador: " + ContadorCargar);
+                        System.out.println("i: " + i);
+                        ContadorCargar++;
+                        if (ContadorCargar == NumeroCampos) {
+                            System.out.println("Entre aqui: " + ContadorCargar + "==" + NumeroCampos);
+                            Modelo.addRow(Row);
+                            ContadorCargar = 0;
+                        }
                     }
-                    Modelo.addRow(Row);
+                }
+                
+                int ValorAgregar = 0;
+                
+                for (int i = 0; i < jt_ARLV_tabla.getColumnCount(); i++) {
+                    for (int j = 0; j < jt_ARLV_tabla.getRowCount(); j++) {
+                        jt_ARLV_tabla.setValueAt(Campos.get(ValorAgregar).toString(),
+                              i, j);
+                        ValorAgregar++;
+                    }
                 }
 
                 jt_ARLV_tabla.setModel(Modelo);
@@ -1071,7 +1091,7 @@ public class ElCaro extends javax.swing.JFrame {
                 }
             }
 
-            String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn(), 
+            String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn(),
                     jt_ARLV_tabla.getColumnName(jt_ARLV_tabla.getSelectedColumn()), JOptionPane.INFORMATION_MESSAGE);
 
             while (ModificarCampo.length() > Campo.length()) {
