@@ -132,6 +132,8 @@ public class ARLV {
                             i++;
                         }
                         LongitudCampo = Integer.parseInt(Temp);
+                        Temp = "";
+                        ContadorCampo++;
                     } else {
                         for (int j = 0; j < 3; j++) {
                             RAF.seek(i);
