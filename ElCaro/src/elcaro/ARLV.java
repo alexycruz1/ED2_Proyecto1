@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ARLV {
@@ -210,6 +211,37 @@ public class ARLV {
         }
 
         this.setManejo(Manejo);
+    }
+    
+    public boolean IsVariable(File Archivo){
+        boolean IsVariable = true;
+
+        Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+
+            for (int i = 0; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char Revisar = (char) RAF.readByte();
+                if (Revisar == ';') {
+                    IsVariable = false;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ARLF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ARLF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return IsVariable;
+    }
+    
+    public DefaultTableModel CargarArchivoVariable(String DireccionArchivo, String DireccionPila, DefaultTableModel Modelo){
+        
+        return Modelo;
     }
 
     public void Agregar(String Registro, long Lenght) {

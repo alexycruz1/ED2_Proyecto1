@@ -280,6 +280,11 @@ public class ElCaro extends javax.swing.JFrame {
         });
 
         jButton6.setText("CARGAR TABLA");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         jLabel10.setText("Tabla de indices");
 
@@ -963,8 +968,42 @@ public class ElCaro extends javax.swing.JFrame {
         } else {
 
         }
-
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Elija el archivo de texto");
+
+        File Archivo_Referencia = null;
+        Archivo_Referencia = new File("./");
+
+        fileChooser.setCurrentDirectory(Archivo_Referencia);
+        int returnValue = fileChooser.showOpenDialog(jd_Crear);
+
+        File selectedFile = fileChooser.getSelectedFile();
+        String DireccionArchivo = selectedFile.getAbsolutePath();
+        variable_variable.setDireccion(DireccionArchivo);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")
+                && variable_variable.IsVariable(fileChooser.getSelectedFile())) {
+            String NombreArchivoBorrado = selectedFile.getName();
+            NombreArchivoBorrado = NombreArchivoBorrado.substring(0, NombreArchivoBorrado.length() - 4);
+
+            String DireccionBorrado = "./borradosvv/" + NombreArchivoBorrado + "borr" + ".txt";
+
+            DefaultTableModel Modelo = new DefaultTableModel();
+            variable_variable.setDireccion(DireccionArchivo);
+            DefaultTableModel ModeloTabla = variable_variable.CargarArchivoVariable(DireccionArchivo, DireccionBorrado, Modelo);
+            jt_ARLV_tabla.setModel(Modelo);
+            Modelo.removeRow(Modelo.getRowCount() - 1);
+            String NombreArchivoVariable = selectedFile.getName();
+            variable_variable.setDireccion(NombreArchivoVariable);
+
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud Variable");
+        }
+    }//GEN-LAST:event_jButton6MouseClicked
 
     /**
      * @param args the command line arguments
