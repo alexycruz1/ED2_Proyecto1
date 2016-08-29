@@ -217,7 +217,7 @@ public class ARLV {
             }
             
             ContadorDelimitador = 0;
-            for (int i = PosicionInicial; i < RAF.length(); i++) {
+            for (int i = PosicionInicial - 1; i < RAF.length(); i++) {
                 RAF.seek(i);
                 char CharCampo = (char)RAF.readByte();
                 if (CharCampo != ':') {
