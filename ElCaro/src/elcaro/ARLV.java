@@ -95,7 +95,7 @@ public class ARLV {
 
                 for (int i = PosicionInicial; i < RAF.length(); i++) {
                     RAF.seek(i);
-                    if (Columna > 2) {
+                    if (Columna > 1) {
                         Columna = -1;
                     }
                     if (ContadorCampo == indice) {
