@@ -1,5 +1,5 @@
 package elcaro;
-
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,16 +8,25 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class ARLV {
 
     String Direccion;
     char manejo;
-
+    ArrayList<String> borrados = new ArrayList();
     public ARLV(String Direccion, char manejo) {
         this.Direccion = Direccion;
         this.manejo = manejo;
     }
 
+    public ArrayList<String> getBorrados() {
+        return borrados;
+    }
+
+    public void setBorrados(ArrayList<String> borrados) {
+        this.borrados = borrados;
+    }
+    
     public ARLV() {
     }
 

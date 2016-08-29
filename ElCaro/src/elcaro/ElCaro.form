@@ -280,11 +280,11 @@
                                                   <Component id="jrb_ARLV_Indices_No" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
-                                                  <Component id="jrb_ARLV_Delimitador" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="D" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jrb_ARLV_KeyValue" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="K" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jrb_ARLV_Indicador" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="I" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -318,9 +318,9 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jrb_ARLV_Delimitador" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jrb_ARLV_KeyValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jrb_ARLV_Indicador" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="D" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="K" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="I" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -379,15 +379,16 @@
                     <Property name="text" type="java.lang.String" value="Manejo de Tabla"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jrb_ARLV_Delimitador">
+                <Component class="javax.swing.JRadioButton" name="D">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="bg_ARLV_ManejoTabla"/>
                     </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Delimitador"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jrb_ARLV_Indicador">
+                <Component class="javax.swing.JRadioButton" name="I">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="bg_ARLV_ManejoTabla"/>
@@ -395,7 +396,7 @@
                     <Property name="text" type="java.lang.String" value="Indicador de longitud"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="jrb_ARLV_KeyValue">
+                <Component class="javax.swing.JRadioButton" name="K">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="bg_ARLV_ManejoTabla"/>
@@ -434,6 +435,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="AGREGAR REGISTRO"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton5MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton6">
                   <Properties>
@@ -450,6 +454,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="bg_ARLV_TablaIndices"/>
                     </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Si"/>
                   </Properties>
                 </Component>
