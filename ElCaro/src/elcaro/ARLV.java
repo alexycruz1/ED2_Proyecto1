@@ -69,6 +69,11 @@ public class ARLV {
                         } else {
                             ContadorCampo++;
                         }
+                    } else {
+                        char Revisar = (char) RAF.readByte();
+                        if (Revisar == '&') {
+                            ContadorCampo++;
+                        }
                     }
                 }
             } catch (FileNotFoundException ex) {
@@ -93,6 +98,11 @@ public class ARLV {
                         if (Revisar != '=') {
                             LongitudCampo++;
                         } else {
+                            ContadorCampo++;
+                        }
+                    } else {
+                        char Revisar = (char) RAF.readByte();
+                        if (Revisar == '=') {
                             ContadorCampo++;
                         }
                     }
@@ -239,13 +249,14 @@ public class ARLV {
 
     public ArrayList<String> GetNombresCampos(int Registro) {
         ArrayList<String> Nombres = new ArrayList();
+        String DelimitadorRegistro = "'";
         if (manejo == 'D') {//Delimitador&
             File Archivo = null;
             Archivo = new File(Direccion);
             RandomAccessFile RAF = null;
             int PosicionInicial = GetPosInicial();
-            int ContadorRegistro = 0;
             int ContadorCampo = 0;
+            int ContadorRegistro = 0;
             String Campo = "";
 
             try {
@@ -254,11 +265,18 @@ public class ARLV {
                 for (int i = PosicionInicial; i < RAF.length(); i++) {
                     RAF.seek(i);
                     if (ContadorRegistro == Registro) {
-                        char Revisar = (char) RAF.readByte();
-                        if (Revisar != '&') {
-                            
+                        char CharRevisar = (char) RAF.readByte();
+                        if (CharRevisar != '&') {
+                            Campo += CharRevisar;
                         } else {
-                            ContadorCampo++;
+                            Nombres.add(Campo);
+                            Campo = "";
+                        }
+                    } else {
+                        char CharRevisar = (char) RAF.readByte();
+                        if (CharRevisar == DelimitadorRegistro.charAt(0)) {
+                            ContadorRegistro++;
+                            i++;
                         }
                     }
                 }
@@ -272,19 +290,29 @@ public class ARLV {
             Archivo = new File(Direccion);
             RandomAccessFile RAF = null;
             int PosicionInicial = GetPosInicial();
-            int ContadorCampo = -1;
+            int ContadorRegistro = 0;
+            String Campo = "";
+            int ContadorDelimitador = 0;
 
             try {
                 RAF = new RandomAccessFile(Archivo, "rw");
 
                 for (int i = PosicionInicial; i < RAF.length(); i++) {
                     RAF.seek(i);
-                    if (ContadorCampo == Registro) {
+                    if (ContadorRegistro == Registro) {
+                        char CharRevisar = (char) RAF.readByte();
                         char Revisar = (char) RAF.readByte();
                         if (Revisar != '=') {
                             //LongitudCampo++;
                         } else {
-                            ContadorCampo++;
+                            //ContadorCampo++;
+                        }
+
+                    } else {
+                        char CharRevisar = (char) RAF.readByte();
+                        if (CharRevisar == DelimitadorRegistro.charAt(0)) {
+                            ContadorRegistro++;
+                            i++;
                         }
                     }
                 }
@@ -299,6 +327,7 @@ public class ARLV {
             RandomAccessFile RAF = null;
             int PosicionInicial = GetPosInicial();
             int ContadorCampo = 0;
+            int ContadorRegistro = 0;
             String Temp = "";
 
             try {
