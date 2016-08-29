@@ -148,23 +148,23 @@ public class ARLV {
         Archivo = new File(Direccion);
         RandomAccessFile RAF = null;
         int NumeroCampos = 0;
-        
+
         try {
             RAF = new RandomAccessFile(Archivo, "rw");
-            
+
             RAF.seek(0);
-            char Temp = (char)RAF.readByte();
+            char Temp = (char) RAF.readByte();
             String Temp2 = "";
             Temp2 += Temp;
-            
+
             NumeroCampos = Integer.parseInt(Temp2);
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return NumeroCampos;
     }
 
@@ -206,25 +206,25 @@ public class ARLV {
 
             for (int i = 0; i < RAF.length(); i++) {
                 RAF.seek(i);
-                char Revisar = (char)RAF.readByte();
+                char Revisar = (char) RAF.readByte();
                 if (Revisar == ':') {
                     ContadorDelimitador++;
                 }
-                
+
                 if (ContadorDelimitador == 2) {
                     PosicionInicial = i + 1;
                 }
             }
-            
+
             ContadorDelimitador = 0;
             for (int i = PosicionInicial - 1; i < RAF.length(); i++) {
                 RAF.seek(i);
-                char CharCampo = (char)RAF.readByte();
+                char CharCampo = (char) RAF.readByte();
                 if (CharCampo != ':') {
                     if (ContadorDelimitador == indice) {
                         NombreColumna += CharCampo;
                     }
-                }else{
+                } else {
                     ContadorDelimitador++;
                 }
             }
@@ -239,6 +239,97 @@ public class ARLV {
 
     public ArrayList<String> GetNombresCampos(int Registro) {
         ArrayList<String> Nombres = new ArrayList();
+        int LongitudCampo = 0;
+        if (manejo == 'D') {//Delimitador&
+            File Archivo = null;
+            Archivo = new File(Direccion);
+            RandomAccessFile RAF = null;
+            int PosicionInicial = GetPosInicial();
+            int ContadorCampo = 0;
+
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+
+                for (int i = PosicionInicial; i < RAF.length(); i++) {
+                    RAF.seek(i);
+                    if (ContadorCampo == Registro) {
+                        char Revisar = (char) RAF.readByte();
+                        if (Revisar != '&') {
+                            LongitudCampo++;
+                        } else {
+                            ContadorCampo++;
+                        }
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (manejo == 'K') {//KeyValue
+            File Archivo = null;
+            Archivo = new File(Direccion);
+            RandomAccessFile RAF = null;
+            int PosicionInicial = GetPosInicial();
+            int ContadorCampo = -1;
+
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+
+                for (int i = PosicionInicial; i < RAF.length(); i++) {
+                    RAF.seek(i);
+                    if (ContadorCampo == Registro) {
+                        char Revisar = (char) RAF.readByte();
+                        if (Revisar != '=') {
+                            LongitudCampo++;
+                        } else {
+                            ContadorCampo++;
+                        }
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (manejo == 'I') {//Indicador
+            File Archivo = null;
+            Archivo = new File(Direccion);
+            RandomAccessFile RAF = null;
+            int PosicionInicial = GetPosInicial();
+            int ContadorCampo = 0;
+            String Temp = "";
+
+            try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+
+                for (int i = PosicionInicial; i < RAF.length(); i++) {
+                    if (ContadorCampo == Registro) {
+                        for (int j = 0; j < 3; j++) {
+                            RAF.seek(i);
+                            char ConcatNumber = (char) RAF.readByte();
+                            Temp += ConcatNumber;
+                            i++;
+                        }
+                        LongitudCampo = Integer.parseInt(Temp);
+                    } else {
+                        for (int j = 0; j < 3; j++) {
+                            RAF.seek(i);
+                            char ConcatNumber = (char) RAF.readByte();
+                            Temp += ConcatNumber;
+                            i++;
+                        }
+                        i = i + Integer.parseInt(Temp);
+                        ContadorCampo++;
+                        Temp = "";
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         return Nombres;
     }
