@@ -1,4 +1,5 @@
 package elcaro;
+
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,12 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ARLV {
 
     String Direccion;
     char manejo;
     ArrayList<String> borrados = new ArrayList();
+
     public ARLV(String Direccion, char manejo) {
         this.Direccion = Direccion;
         this.manejo = manejo;
@@ -27,7 +28,7 @@ public class ARLV {
     public void setBorrados(ArrayList<String> borrados) {
         this.borrados = borrados;
     }
-    
+
     public ARLV() {
     }
 
@@ -116,15 +117,15 @@ public class ARLV {
                     if (ContadorCampo == indice) {
                         for (int j = 0; j < 3; j++) {
                             RAF.seek(i);
-                            char ConcatNumber = (char)RAF.readByte();
+                            char ConcatNumber = (char) RAF.readByte();
                             Temp += ConcatNumber;
                             i++;
                         }
                         LongitudCampo = Integer.parseInt(Temp);
-                    }else{
+                    } else {
                         for (int j = 0; j < 3; j++) {
                             RAF.seek(i);
-                            char ConcatNumber = (char)RAF.readByte();
+                            char ConcatNumber = (char) RAF.readByte();
                             Temp += ConcatNumber;
                             i++;
                         }
@@ -143,7 +144,28 @@ public class ARLV {
     }
 
     public int GetNumCampo() {
-        return 0;
+        File Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+        int NumeroCampos = 0;
+        
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+            
+            RAF.seek(0);
+            char Temp = (char)RAF.readByte();
+            String Temp2 = "";
+            Temp2 += Temp;
+            
+            NumeroCampos = Integer.parseInt(Temp2);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return NumeroCampos;
     }
 
     public int GetPosInicial() {
@@ -170,11 +192,52 @@ public class ARLV {
         return PosicionInicial;
     }
 
-    public String GetNombreCampo(int indice) {
-        return "";
+    public String GetNombreColumna(int indice) {
+        File Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+        int PosicionInicial = 0;
+        int NumeroCampo = 0;
+        int ContadorDelimitador = 0;
+        String NombreColumna = "";
+
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+
+            for (int i = 0; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char Revisar = (char)RAF.readByte();
+                if (Revisar == ':') {
+                    ContadorDelimitador++;
+                }
+                
+                if (ContadorDelimitador == 2) {
+                    PosicionInicial = i + 1;
+                }
+            }
+            
+            ContadorDelimitador = 0;
+            for (int i = PosicionInicial; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char CharCampo = (char)RAF.readByte();
+                if (CharCampo != ':') {
+                    if (ContadorDelimitador == indice) {
+                        NombreColumna += CharCampo;
+                    }
+                }else{
+                    ContadorDelimitador++;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return NombreColumna;
     }
 
-    public ArrayList<String> GetNombresCampos() {
+    public ArrayList<String> GetNombresCampos(int Registro) {
         ArrayList<String> Nombres = new ArrayList();
 
         return Nombres;
@@ -212,8 +275,8 @@ public class ARLV {
 
         this.setManejo(Manejo);
     }
-    
-    public boolean IsVariable(File Archivo){
+
+    public boolean IsVariable(File Archivo) {
         boolean IsVariable = true;
 
         Archivo = null;
@@ -238,9 +301,9 @@ public class ARLV {
 
         return IsVariable;
     }
-    
-    public DefaultTableModel CargarArchivoVariable(String DireccionArchivo, String DireccionPila, DefaultTableModel Modelo){
-        
+
+    public DefaultTableModel CargarArchivoVariable(String DireccionArchivo, String DireccionPila, DefaultTableModel Modelo) {
+
         return Modelo;
     }
 
@@ -253,21 +316,16 @@ public class ARLV {
                 RAF = new RandomAccessFile(Archivo, "rw");
                 RAF.seek(Lenght);
                 RAF.writeBytes(Registro + "&");
-                
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            if (manejo == 'K') {
+        } else if (manejo == 'K') {
 
-            } else {
-                if (manejo == 'I') {
+        } else if (manejo == 'I') {
 
-                }
-
-            }
         }
     }
 }
