@@ -719,42 +719,27 @@ public class ElCaro extends javax.swing.JFrame {
             String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + Campo, Campo.toUpperCase(),
                     JOptionPane.INFORMATION_MESSAGE);
             int Concatenar = Integer.parseInt(fijo_fijo.TamañoCampo()) - ModificarCampo.length();
-
+            for (int j = 0; j < Concatenar; j++) {
+                ModificarCampo += "-";
+            }
             if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
                 jt_ARLF_Tabla.setValueAt(ModificarCampo, jt_ARLF_Tabla.getSelectedRow(),
                         jt_ARLF_Tabla.getSelectedColumn());
-
+                
                 File Archivo = null;
                 Archivo = new File(fijo_fijo.getDireccion());
                 RandomAccessFile RAF = null;
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
                     String TamañoCampo = "";
-                    int ContadorDelimitador = 0;
-                    for (int i = 0; i < RAF.length(); i++) {
-                        RAF.seek(i);
-                        char TamañoCampoTemp = (char) RAF.readByte();
-                        if (TamañoCampoTemp != ';') {
-                            if (ContadorDelimitador == 4) {
-                                int Posicion = (jt_ARLF_Tabla.getSelectedRow()
+                    int Posicion = (jt_ARLF_Tabla.getSelectedRow()
                                         * Integer.parseInt(fijo_fijo.NumeroCampos())
                                         * Integer.parseInt(fijo_fijo.TamañoCampo()))
                                         + (jt_ARLF_Tabla.getSelectedColumn()
                                         * Integer.parseInt(fijo_fijo.TamañoCampo()));
-                                RAF.seek(i + Posicion);
-                                RAF.writeBytes(ModificarCampo);
-                                RAF.seek(i + Posicion + ModificarCampo.length());
-                                for (int j = 0; j < Concatenar; j++) {
-                                    RAF.seek(i + j + Posicion + ModificarCampo.length());
-                                    System.out.println("Hola");
-                                    RAF.writeBytes("-");
-                                }
-                                ContadorDelimitador++;
-                            }
-                        } else {
-                            ContadorDelimitador++;
-                        }
-                    }
+                    
+                    RAF.seek(Posicion + fijo_fijo.GetPosInicial());
+                    RAF.writeBytes(ModificarCampo);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -1125,6 +1110,7 @@ public class ElCaro extends javax.swing.JFrame {
                 RandomAccessFile RAF = null;
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
+                    System.out.println(variable_variable.GetNombreColumna(indice));
                     RAF.seek(Lenght);
                     RAF.writeBytes(variable_variable.GetNombreColumna(indice)+"="+Registro);
 
