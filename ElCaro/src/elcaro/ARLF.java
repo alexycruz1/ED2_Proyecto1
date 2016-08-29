@@ -59,21 +59,6 @@ public class ARLF {
         }
     }
 
-    public void ModificarARLF(String Campo, long Posicion) {
-        File Archivo = null;
-        Archivo = new File(Direccion);
-        RandomAccessFile RAF = null;
-        try {
-            RAF = new RandomAccessFile(Archivo, "rw");
-            RAF.seek(Posicion);
-            RAF.writeBytes(Campo);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public String TamañoCampo() {
         String TamañoCampo = "";
         int ContadorDelimitador = 0;
@@ -126,6 +111,30 @@ public class ARLF {
             Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
         }
         return TamañoCampo;
+    }
+    
+    public int GetPosInicial() {
+        File Archivo = null;
+        Archivo = new File(Direccion);
+        RandomAccessFile RAF = null;
+        int PosicionInicial = 0;
+
+        try {
+            RAF = new RandomAccessFile(Archivo, "rw");
+
+            for (int i = 0; i < RAF.length(); i++) {
+                RAF.seek(i);
+                char Revisar = (char) RAF.readByte();
+                if (Revisar == ';') {
+                    PosicionInicial = i + 1;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return PosicionInicial;
     }
 
     public Stack<Integer> getBorrados() {
