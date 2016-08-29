@@ -225,6 +225,7 @@ public class ARLV {
 
                 if (ContadorDelimitador == 2) {
                     PosicionInicial = i + 1;
+                    ContadorDelimitador++;
                 }
             }
 
