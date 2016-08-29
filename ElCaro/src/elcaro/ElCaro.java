@@ -725,7 +725,7 @@ public class ElCaro extends javax.swing.JFrame {
             if (ModificarCampo.length() <= Integer.parseInt(fijo_fijo.TamañoCampo())) {
                 jt_ARLF_Tabla.setValueAt(ModificarCampo, jt_ARLF_Tabla.getSelectedRow(),
                         jt_ARLF_Tabla.getSelectedColumn());
-                
+
                 File Archivo = null;
                 Archivo = new File(fijo_fijo.getDireccion());
                 RandomAccessFile RAF = null;
@@ -733,11 +733,11 @@ public class ElCaro extends javax.swing.JFrame {
                     RAF = new RandomAccessFile(Archivo, "rw");
                     String TamañoCampo = "";
                     int Posicion = (jt_ARLF_Tabla.getSelectedRow()
-                                        * Integer.parseInt(fijo_fijo.NumeroCampos())
-                                        * Integer.parseInt(fijo_fijo.TamañoCampo()))
-                                        + (jt_ARLF_Tabla.getSelectedColumn()
-                                        * Integer.parseInt(fijo_fijo.TamañoCampo()));
-                    
+                            * Integer.parseInt(fijo_fijo.NumeroCampos())
+                            * Integer.parseInt(fijo_fijo.TamañoCampo()))
+                            + (jt_ARLF_Tabla.getSelectedColumn()
+                            * Integer.parseInt(fijo_fijo.TamañoCampo()));
+
                     RAF.seek(Posicion + fijo_fijo.GetPosInicial());
                     RAF.writeBytes(ModificarCampo);
                 } catch (FileNotFoundException ex) {
@@ -937,10 +937,9 @@ public class ElCaro extends javax.swing.JFrame {
                     try {
                         RAF = new RandomAccessFile(Archivo, "rw");
                         Agregard(Row[i].toString(), RAF.length(), i);
-                        if (i == Campos.size() - 1 && variable_variable.getManejo() == 'D') {
-                            RAF.seek(RAF.length());
-                            RAF.writeBytes("'");
-                        }
+
+                        RAF.seek(RAF.length());
+                        RAF.writeBytes("'");
 
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
@@ -1112,7 +1111,7 @@ public class ElCaro extends javax.swing.JFrame {
                     RAF = new RandomAccessFile(Archivo, "rw");
                     System.out.println(variable_variable.GetNombreColumna(indice));
                     RAF.seek(Lenght);
-                    RAF.writeBytes(variable_variable.GetNombreColumna(indice)+"="+Registro);
+                    RAF.writeBytes(variable_variable.GetNombreColumna(indice) + "=" + Registro);
 
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
