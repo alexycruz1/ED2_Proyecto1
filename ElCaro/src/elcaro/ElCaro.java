@@ -5,6 +5,7 @@
  */
 package elcaro;
 
+import java.awt.Frame;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
@@ -17,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -50,7 +52,6 @@ public class ElCaro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jsp_ARLF_NumeroCampos = new javax.swing.JSpinner();
         jsp_ARLF_LongitudCampos = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
         jb_Crear_Tabla_Fijo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -59,8 +60,8 @@ public class ElCaro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nombre_arlf = new javax.swing.JTextField();
         jb_Cargar_tabla_Fijo = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jt_ARLV_Nombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -79,6 +80,7 @@ public class ElCaro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jrb_ARLV_Indices_Si = new javax.swing.JRadioButton();
         jrb_ARLV_Indices_No = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
         jpm_ARLF = new javax.swing.JPopupMenu();
         jpm_ARLF_Modificar = new javax.swing.JMenuItem();
         jpm_seleccionar_ARLF = new javax.swing.JMenuItem();
@@ -96,18 +98,33 @@ public class ElCaro extends javax.swing.JFrame {
         jd_Crear.setTitle("ELCARO BASE DE DATOS");
         jd_Crear.setResizable(false);
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("Numero de campos");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 91, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("Longitud de campos");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 129, -1, -1));
 
-        jLabel3.setText("CREAR TABLA");
+        jsp_ARLF_NumeroCampos.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(jsp_ARLF_NumeroCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 52, -1));
 
+        jsp_ARLF_LongitudCampos.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(jsp_ARLF_LongitudCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 52, -1));
+
+        jb_Crear_Tabla_Fijo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database-logo.png"))); // NOI18N
         jb_Crear_Tabla_Fijo.setText("Crear Tabla");
         jb_Crear_Tabla_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_Crear_Tabla_FijoMouseClicked(evt);
             }
         });
+        jPanel1.add(jb_Crear_Tabla_Fijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 64, 146, 44));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 157, 773, 10));
 
         jt_ARLF_Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,118 +142,87 @@ public class ElCaro extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jt_ARLF_Tabla);
 
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 228, 753, 462));
+
+        jb_Agregar_Campo_Fijo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database-logo.png"))); // NOI18N
         jb_Agregar_Campo_Fijo.setText("AGREGAR REGISTRO");
         jb_Agregar_Campo_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_Agregar_Campo_FijoMouseClicked(evt);
             }
         });
+        jPanel1.add(jb_Agregar_Campo_Fijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
         jLabel4.setText("Nombre");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 53, -1, -1));
+        jPanel1.add(nombre_arlf, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 50, 117, -1));
 
+        jb_Cargar_tabla_Fijo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database-logo.png"))); // NOI18N
         jb_Cargar_tabla_Fijo.setText("CARGAR TABLA");
         jb_Cargar_tabla_Fijo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_Cargar_tabla_FijoMouseClicked(evt);
             }
         });
+        jPanel1.add(jb_Cargar_tabla_Fijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 160, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jsp_ARLF_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(nombre_arlf, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(33, 33, 33)
-                                .addComponent(jb_Crear_Tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jb_Agregar_Campo_Fijo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jb_Cargar_tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(259, 259, 259)
-                                .addComponent(jLabel3)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(nombre_arlf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jsp_ARLF_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jsp_ARLF_LongitudCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jb_Crear_Tabla_Fijo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jb_Agregar_Campo_Fijo)
-                    .addComponent(jb_Cargar_tabla_Fijo))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4040961-database-wallpapers_JD_DIALOG.jpg"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 710));
 
         jTabbedPane1.addTab("ARLF", jPanel1);
 
-        jLabel5.setText("CREAR TABLA");
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
         jLabel6.setText("Nombre");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 46, -1, -1));
+        jPanel2.add(jt_ARLV_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 43, 116, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 210, -1, -1));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(240, 240, 240));
         jLabel8.setText("Numero de Campos");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 84, -1, -1));
 
+        jsp_ARLV_NumeroCampos.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel2.add(jsp_ARLV_NumeroCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 81, 39, -1));
+
+        jb_ARLV_CrearTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database-logo.png"))); // NOI18N
         jb_ARLV_CrearTabla.setText("Crear Tabla");
         jb_ARLV_CrearTabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jb_ARLV_CrearTablaMouseClicked(evt);
             }
         });
+        jPanel2.add(jb_ARLV_CrearTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 40, -1, 47));
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(240, 240, 240));
         jLabel9.setText("Manejo de Tabla");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 123, -1, -1));
 
         bg_ARLV_ManejoTabla.add(D);
+        D.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        D.setForeground(new java.awt.Color(240, 240, 240));
         D.setSelected(true);
         D.setText("Delimitador");
+        jPanel2.add(D, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 119, -1, -1));
 
         bg_ARLV_ManejoTabla.add(I);
+        I.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        I.setForeground(new java.awt.Color(240, 240, 240));
         I.setText("Indicador de longitud");
+        jPanel2.add(I, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 119, -1, -1));
 
         bg_ARLV_ManejoTabla.add(K);
+        K.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        K.setForeground(new java.awt.Color(240, 240, 240));
         K.setText("Key Value");
+        jPanel2.add(K, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 119, -1, -1));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 194, 763, 10));
 
         jt_ARLV_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,126 +243,46 @@ public class ElCaro extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_ARLV_tabla);
 
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 277, 743, 425));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database-logo.png"))); // NOI18N
         jButton5.setText("AGREGAR REGISTRO");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
             }
         });
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 50));
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/database-logo.png"))); // NOI18N
         jButton6.setText("CARGAR TABLA");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton6MouseClicked(evt);
             }
         });
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 174, 50));
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(240, 240, 240));
         jLabel10.setText("Tabla de indices");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 157, -1, -1));
 
         bg_ARLV_TablaIndices.add(jrb_ARLV_Indices_Si);
+        jrb_ARLV_Indices_Si.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jrb_ARLV_Indices_Si.setForeground(new java.awt.Color(240, 240, 240));
         jrb_ARLV_Indices_Si.setSelected(true);
         jrb_ARLV_Indices_Si.setText("Si");
+        jPanel2.add(jrb_ARLV_Indices_Si, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 153, -1, -1));
 
         bg_ARLV_TablaIndices.add(jrb_ARLV_Indices_No);
+        jrb_ARLV_Indices_No.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jrb_ARLV_Indices_No.setForeground(new java.awt.Color(240, 240, 240));
         jrb_ARLV_Indices_No.setText("No");
+        jPanel2.add(jrb_ARLV_Indices_No, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 153, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator2))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 20, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(74, 74, 74)
-                                .addComponent(jt_ARLV_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(jsp_ARLV_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(149, 149, 149)
-                        .addComponent(jb_ARLV_CrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jrb_ARLV_Indices_Si)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jrb_ARLV_Indices_No))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(D)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(K)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(I)))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jb_ARLV_CrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jt_ARLV_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jsp_ARLV_NumeroCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(D)
-                    .addComponent(K)
-                    .addComponent(I))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jrb_ARLV_Indices_Si)
-                    .addComponent(jrb_ARLV_Indices_No))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4040961-database-wallpapers_JD_DIALOG.jpg"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 710));
 
         jTabbedPane1.addTab("ARLV", jPanel2);
 
@@ -393,8 +299,8 @@ public class ElCaro extends javax.swing.JFrame {
             jd_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_CrearLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 741, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpm_ARLF_Modificar.setText("Modificar");
@@ -476,51 +382,55 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jb_Crear_Tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Crear_Tabla_FijoMouseClicked
         // TODO add your handling code here:
-        String Direccion = nombre_arlf.getText() + ".txt";
-        String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
-        fijo_fijo.setDireccion(Direccion);
-        System.out.println(fijo_fijo.getDireccion());
-        File Archivo = null, Archivo_b = null;
-        Archivo = new File(Direccion);
-        Archivo_b = new File(Borrado);
-        RandomAccessFile RAF = null;
-        RandomAccessFile RAF2 = null;
-        try {
-            RAF = new RandomAccessFile(Archivo, "rw");
-            RAF2 = new RandomAccessFile(Archivo_b, "rw");
-            RAF.writeBytes(jsp_ARLF_NumeroCampos.getValue().toString());
-            RAF2.writeBytes("$");
-            RAF.seek(RAF.length());
-            RAF.writeBytes(";");
-            RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
-            RAF.seek(RAF.length());
-            RAF.writeBytes(";");
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        DefaultTableModel Modelo = new DefaultTableModel();
-        int NumeroCampos = (int) (jsp_ARLF_NumeroCampos.getValue());
-
-        for (int i = 0; i < NumeroCampos; i++) {
-            String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
-                    "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
-            Modelo.addColumn(NombreCampo);
+        if (ValidarAgregar(nombre_arlf)) {
+            String Direccion = nombre_arlf.getText() + ".txt";
+            String Borrado = "./borrados/" + nombre_arlf.getText() + "borr" + ".txt";
+            fijo_fijo.setDireccion(Direccion);
+            System.out.println(fijo_fijo.getDireccion());
+            File Archivo = null, Archivo_b = null;
+            Archivo = new File(Direccion);
+            Archivo_b = new File(Borrado);
+            RandomAccessFile RAF = null;
+            RandomAccessFile RAF2 = null;
             try {
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF2 = new RandomAccessFile(Archivo_b, "rw");
+                RAF.writeBytes(jsp_ARLF_NumeroCampos.getValue().toString());
+                RAF2.writeBytes("$");
                 RAF.seek(RAF.length());
-                RAF.writeBytes(NombreCampo);
                 RAF.writeBytes(";");
+                RAF.writeBytes(jsp_ARLF_LongitudCampos.getValue().toString());
+                RAF.seek(RAF.length());
+                RAF.writeBytes(";");
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
 
-        jt_ARLF_Tabla.setModel(Modelo);
+            DefaultTableModel Modelo = new DefaultTableModel();
+            int NumeroCampos = (int) (jsp_ARLF_NumeroCampos.getValue());
+
+            for (int i = 0; i < NumeroCampos; i++) {
+                String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
+                        "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
+                Modelo.addColumn(NombreCampo);
+                try {
+                    RAF.seek(RAF.length());
+                    RAF.writeBytes(NombreCampo);
+                    RAF.writeBytes(";");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            jt_ARLF_Tabla.setModel(Modelo);
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Debe ingresar un nombre para su tabla");
+        }
     }//GEN-LAST:event_jb_Crear_Tabla_FijoMouseClicked
 
     private void jt_ARLF_TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLF_TablaMouseClicked
@@ -804,70 +714,74 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jb_ARLV_CrearTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ARLV_CrearTablaMouseClicked
         // TODO add your handling code here:
-        String Direccion = jt_ARLV_Nombre.getText() + ".txt";
-        String Borrado = "./borradosvv/" + jt_ARLV_Nombre.getText() + "borr" + ".txt";
-        String Cargado = "./cargar/" + jt_ARLV_Nombre.getText() + "car.txt";
+        if (ValidarAgregar(jt_ARLV_Nombre)) {
+            String Direccion = jt_ARLV_Nombre.getText() + ".txt";
+            String Borrado = "./borradosvv/" + jt_ARLV_Nombre.getText() + "borr" + ".txt";
+            String Cargado = "./cargar/" + jt_ARLV_Nombre.getText() + "car.txt";
 
-        variable_variable.setDireccion(Direccion);
-        if (D.isSelected()) {
-            variable_variable.setManejo('D');
-        } else if (K.isSelected()) {
-            variable_variable.setManejo('K');
-        } else {
-            variable_variable.setManejo('I');
-        }
+            variable_variable.setDireccion(Direccion);
+            if (D.isSelected()) {
+                variable_variable.setManejo('D');
+            } else if (K.isSelected()) {
+                variable_variable.setManejo('K');
+            } else {
+                variable_variable.setManejo('I');
+            }
 
-        String Manejo = "";
-        Manejo += variable_variable.getManejo();
-        System.out.println(variable_variable.getDireccion());
-        File Archivo = null, Archivo_b = null, Archivo_c;
-        Archivo = new File(Direccion);
-        Archivo_b = new File(Borrado);
-        Archivo_c = new File(Cargado);
-        RandomAccessFile RAF = null;
-        RandomAccessFile RAF2 = null;
-        RandomAccessFile RAF3 = null;
-        try {
-            RAF = new RandomAccessFile(Archivo, "rw");
-            RAF2 = new RandomAccessFile(Archivo_b, "rw");
-            RAF3 = new RandomAccessFile(Archivo_c, "rw");
-            RAF3.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
-            RAF3.writeBytes(";");
-            RAF.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
-            RAF2.writeBytes("$");
-            RAF.seek(RAF.length());
-            RAF.writeBytes(":");
-            RAF.writeBytes(Manejo);
-            RAF.writeBytes(":");
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        DefaultTableModel Modelo = new DefaultTableModel();
-        int NumeroCampos = (int) (jsp_ARLV_NumeroCampos.getValue());
-
-        for (int i = 0; i < NumeroCampos; i++) {
-            String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
-                    "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
-            Modelo.addColumn(NombreCampo);
+            String Manejo = "";
+            Manejo += variable_variable.getManejo();
+            System.out.println(variable_variable.getDireccion());
+            File Archivo = null, Archivo_b = null, Archivo_c;
+            Archivo = new File(Direccion);
+            Archivo_b = new File(Borrado);
+            Archivo_c = new File(Cargado);
+            RandomAccessFile RAF = null;
+            RandomAccessFile RAF2 = null;
+            RandomAccessFile RAF3 = null;
             try {
-                RAF.seek(RAF.length());
-                RAF3.seek(RAF3.length());
-                RAF.writeBytes(NombreCampo);
-                RAF3.writeBytes(NombreCampo);
-                RAF.writeBytes(":");
+                RAF = new RandomAccessFile(Archivo, "rw");
+                RAF2 = new RandomAccessFile(Archivo_b, "rw");
+                RAF3 = new RandomAccessFile(Archivo_c, "rw");
+                RAF3.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
                 RAF3.writeBytes(";");
+                RAF.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
+                RAF2.writeBytes("$");
+                RAF.seek(RAF.length());
+                RAF.writeBytes(":");
+                RAF.writeBytes(Manejo);
+                RAF.writeBytes(":");
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            DefaultTableModel Modelo = new DefaultTableModel();
+            int NumeroCampos = (int) (jsp_ARLV_NumeroCampos.getValue());
+
+            for (int i = 0; i < NumeroCampos; i++) {
+                String NombreCampo = JOptionPane.showInputDialog(jd_Crear,
+                        "Ingrese el nombre del campo", "NOMBRE DE CAMPO", JOptionPane.INFORMATION_MESSAGE);
+                Modelo.addColumn(NombreCampo);
+                try {
+                    RAF.seek(RAF.length());
+                    RAF3.seek(RAF3.length());
+                    RAF.writeBytes(NombreCampo);
+                    RAF3.writeBytes(NombreCampo);
+                    RAF.writeBytes(":");
+                    RAF3.writeBytes(";");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            System.out.println(variable_variable.GetPosInicial());
+            jt_ARLV_tabla.setModel(Modelo);
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Debe ingresar un nombre para su tabla");
         }
-        System.out.println(variable_variable.GetPosInicial());
-        jt_ARLV_tabla.setModel(Modelo);
     }//GEN-LAST:event_jb_ARLV_CrearTablaMouseClicked
 
     private void jt_ARLV_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ARLV_tablaMouseClicked
@@ -1204,6 +1118,7 @@ public class ElCaro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ElCaro().setVisible(true);
+
             }
         });
     }
@@ -1315,5 +1230,14 @@ public class ElCaro extends javax.swing.JFrame {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public static boolean ValidarAgregar(JTextField Campo) {
+        Boolean Escribir = false;
+        if (!Campo.getText().equals("")) {
+            Escribir = true;
+        }
+
+        return Escribir;
     }
 }
