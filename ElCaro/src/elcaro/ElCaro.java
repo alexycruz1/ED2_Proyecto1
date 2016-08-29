@@ -862,6 +862,9 @@ public class ElCaro extends javax.swing.JFrame {
                 variable_variable.setManejo('I');
             }
         }
+        
+        String Manejo = "";
+        Manejo += variable_variable.getManejo();
         System.out.println(variable_variable.getDireccion());
         File Archivo = null, Archivo_b = null;
         Archivo = new File(Direccion);
@@ -874,6 +877,8 @@ public class ElCaro extends javax.swing.JFrame {
             RAF.writeBytes(jsp_ARLV_NumeroCampos.getValue().toString());
             RAF2.writeBytes("$");
             RAF.seek(RAF.length());
+            RAF.writeBytes(":");
+            RAF.writeBytes(Manejo);
             RAF.writeBytes(":");
 
         } catch (FileNotFoundException ex) {
