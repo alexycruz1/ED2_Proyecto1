@@ -239,23 +239,24 @@ public class ARLV {
 
     public ArrayList<String> GetNombresCampos(int Registro) {
         ArrayList<String> Nombres = new ArrayList();
-        int LongitudCampo = 0;
         if (manejo == 'D') {//Delimitador&
             File Archivo = null;
             Archivo = new File(Direccion);
             RandomAccessFile RAF = null;
             int PosicionInicial = GetPosInicial();
+            int ContadorRegistro = 0;
             int ContadorCampo = 0;
+            String Campo = "";
 
             try {
                 RAF = new RandomAccessFile(Archivo, "rw");
 
                 for (int i = PosicionInicial; i < RAF.length(); i++) {
                     RAF.seek(i);
-                    if (ContadorCampo == Registro) {
+                    if (ContadorRegistro == Registro) {
                         char Revisar = (char) RAF.readByte();
                         if (Revisar != '&') {
-                            LongitudCampo++;
+                            
                         } else {
                             ContadorCampo++;
                         }
