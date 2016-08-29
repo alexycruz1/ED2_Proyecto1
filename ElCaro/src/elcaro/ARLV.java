@@ -386,23 +386,18 @@ public class ARLV {
         RandomAccessFile RAF = null;
         int ContadorDelimitador = 0;
         char Manejo = 'D';
+        System.out.println("Manejo: " + Manejo);
 
         try {
             RAF = new RandomAccessFile(Archivo, "rw");
 
-            for (int i = 0; i < RAF.length(); i++) {
-                RAF.seek(i);
-                char Revisar = (char) RAF.readByte();
-
-                if (ContadorDelimitador == 1) {
-                    i++;
-                    RAF.seek(i);
-                    Manejo = (char) RAF.readByte();
-                }
-
-                if (Revisar == ':') {
-                    ContadorDelimitador++;
-                }
+            int NumeroCampos = GetNumCampo();
+            if (NumeroCampos < 10) {
+                RAF.seek(2);
+                Manejo = (char)RAF.readByte();
+            }else{
+                RAF.seek(3);
+                Manejo = (char)RAF.readByte();
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
@@ -410,6 +405,7 @@ public class ARLV {
             Logger.getLogger(ARLV.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        System.out.println("ManejoFinal:" + Manejo);
         this.setManejo(Manejo);
     }
 

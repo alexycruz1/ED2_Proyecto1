@@ -873,7 +873,7 @@ public class ElCaro extends javax.swing.JFrame {
             }
 
         } else {
-
+            
         }
     }//GEN-LAST:event_jButton5MouseClicked
 
@@ -890,7 +890,10 @@ public class ElCaro extends javax.swing.JFrame {
 
         File selectedFile = fileChooser.getSelectedFile();
         String DireccionArchivo = selectedFile.getAbsolutePath();
-        variable_variable.setDireccion(DireccionArchivo);
+        variable_variable.setDireccion("./" + selectedFile.getName());
+        variable_variable.CargarManejo();
+        System.out.println("ENTRE AQUI");
+        System.out.println(variable_variable.manejo);
 
         if (returnValue == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().getName().endsWith(".txt")
                 && variable_variable.IsVariable(fileChooser.getSelectedFile())) {
@@ -971,25 +974,20 @@ public class ElCaro extends javax.swing.JFrame {
                 for (int i = 0; i < Campos.size(); i++) {
                     if (ContadorCargar < NumeroCampos) {
                         Row[i] = Campos.get(i).toString();
-                        System.out.println("Fila: " + Fila + " Campo Agregado: " + Campos.get(i).toString());
-                        System.out.println("Numero Campo: " + NumeroCampos);
-                        System.out.println("Contador: " + ContadorCargar);
-                        System.out.println("i: " + i);
                         ContadorCargar++;
                         if (ContadorCargar == NumeroCampos) {
-                            System.out.println("Entre aqui: " + ContadorCargar + "==" + NumeroCampos);
                             Modelo.addRow(Row);
                             ContadorCargar = 0;
                         }
                     }
                 }
-                
+
                 int ValorAgregar = 0;
-                
+
                 for (int i = 0; i < jt_ARLV_tabla.getColumnCount(); i++) {
                     for (int j = 0; j < jt_ARLV_tabla.getRowCount(); j++) {
                         jt_ARLV_tabla.setValueAt(Campos.get(ValorAgregar).toString(),
-                              i, j);
+                                i, j);
                         ValorAgregar++;
                     }
                 }
