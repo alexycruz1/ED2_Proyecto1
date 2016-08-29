@@ -746,6 +746,7 @@ public class ElCaro extends javax.swing.JFrame {
                                 RAF.seek(i + Posicion + ModificarCampo.length());
                                 for (int j = 0; j < Concatenar; j++) {
                                     RAF.seek(i + j + Posicion + ModificarCampo.length());
+                                    System.out.println("Hola");
                                     RAF.writeBytes("-");
                                 }
                                 ContadorDelimitador++;
