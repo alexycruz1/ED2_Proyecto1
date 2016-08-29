@@ -429,7 +429,8 @@ public class ElCaro extends javax.swing.JFrame {
 
             jt_ARLF_Tabla.setModel(Modelo);
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Debe ingresar un nombre para su tabla");
+            JOptionPane.showMessageDialog(jd_Crear, "Debe ingresar un nombre para su tabla", "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jb_Crear_Tabla_FijoMouseClicked
 
@@ -500,9 +501,11 @@ public class ElCaro extends javax.swing.JFrame {
                     }
 
                 }
-                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro", "OPERACION EXITOSA",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } else {
             int posicion = fijo_fijo.Borrados.pop();
@@ -575,10 +578,12 @@ public class ElCaro extends javax.swing.JFrame {
                     jt_ARLF_Tabla.setValueAt(row[i], posicion, i);
                 }
 
-                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro", "OPERACION EXITOSA",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
                 fijo_fijo.Borrados.add(posicion);
-                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jb_Agregar_Campo_FijoMouseClicked
@@ -621,11 +626,16 @@ public class ElCaro extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                JOptionPane.showMessageDialog(jd_Crear, "Se modifico un campo", "OPERACION EXITOSA",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(jd_Crear, "No se pudo modificar campo");
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo modificar campo", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "En esta Posicion No Existe Un Registro");
+            JOptionPane.showMessageDialog(jd_Crear, "En esta Posicion no existe un registro", "ERROR,",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jpm_ARLF_ModificarActionPerformed
 
@@ -672,7 +682,8 @@ public class ElCaro extends javax.swing.JFrame {
                         jt_ARLF_Tabla.getSelectedColumn() + i);
             }
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!");
+            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!", "ERROR", 
+                    JOptionPane.ERROR_MESSAGE);
         }
         jpm_borrar_registro_ARLF.setEnabled(false);
     }//GEN-LAST:event_jpm_borrar_registro_ARLFActionPerformed
@@ -708,7 +719,8 @@ public class ElCaro extends javax.swing.JFrame {
             fijo_fijo.setDireccion(NombreArchivoFijo);
 
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud fija");
+            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud fija",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jb_Cargar_tabla_FijoMouseClicked
 
@@ -780,7 +792,8 @@ public class ElCaro extends javax.swing.JFrame {
             System.out.println(variable_variable.GetPosInicial());
             jt_ARLV_tabla.setModel(Modelo);
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Debe ingresar un nombre para su tabla");
+            JOptionPane.showMessageDialog(jd_Crear, "Debe ingresar un nombre para su tabla", "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jb_ARLV_CrearTablaMouseClicked
 
@@ -851,10 +864,12 @@ public class ElCaro extends javax.swing.JFrame {
 
                 //System.out.println(variable_variable.GetTamañoCampo(0));
                 //System.out.println(variable_variable.GetTamañoCampo(1));
-                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+                JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro", "OPERACION EXITOSA",
+                        JOptionPane.INFORMATION_MESSAGE);
 
             } else {
-                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
+                JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         } else {
@@ -968,7 +983,8 @@ public class ElCaro extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud Variable");
+            JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud Variable",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton6MouseClicked
 
@@ -1013,7 +1029,8 @@ public class ElCaro extends javax.swing.JFrame {
                         jt_ARLV_tabla.getSelectedColumn() + i);
             }
         } else {
-            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!");
+            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!", "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
         }
         jpm_ARLV_Borrar_Registro.setEnabled(false);
     }//GEN-LAST:event_jpm_ARLV_Borrar_RegistroActionPerformed
@@ -1054,10 +1071,11 @@ public class ElCaro extends javax.swing.JFrame {
                 }
             }
 
-            String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn());
+            String ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn(), 
+                    jt_ARLV_tabla.getColumnName(jt_ARLV_tabla.getSelectedColumn()), JOptionPane.INFORMATION_MESSAGE);
 
             while (ModificarCampo.length() > Campo.length()) {
-                JOptionPane.showMessageDialog(jd_Crear, "El dato que desea ingresar es muy grande");
+                JOptionPane.showMessageDialog(jd_Crear, "El dato que desea ingresar es muy grande", "ERROR", JOptionPane.ERROR_MESSAGE);
                 ModificarCampo = JOptionPane.showInputDialog(jd_Crear, "Ingrese el " + jt_ARLV_tabla.getSelectedColumn());
             }
 
