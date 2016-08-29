@@ -803,7 +803,6 @@ public class ElCaro extends javax.swing.JFrame {
 
     private void jb_Cargar_tabla_FijoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_Cargar_tabla_FijoMouseClicked
         // TODO add your handling code here:
-
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Elija el archivo de texto");
 
