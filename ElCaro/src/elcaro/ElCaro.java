@@ -31,25 +31,7 @@ public class ElCaro extends javax.swing.JFrame {
      */
     public ElCaro() {
         initComponents();
-        /*try {
-            
-         String Direccion = "./nuevo.txt";
-         File Archivo = null;
-         Archivo = new File(Direccion);
-         try {
-         RandomAccessFile RAF = new RandomAccessFile(Archivo, "rw");
-         RAF.writeBytes("mi mama me mima");
-
-         RAF.seek(5);
-         String Nueva = "Mi mama no me mima";
-         RAF.writeBytes(Nueva);
-
-         } catch (FileNotFoundException ex) {
-         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         } catch (IOException ex) {
-         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
-         }*/
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -108,9 +90,11 @@ public class ElCaro extends javax.swing.JFrame {
         jpm_ARLV_Borrar_Registro = new javax.swing.JMenuItem();
         bg_ARLV_TablaIndices = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+
+        jd_Crear.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jd_Crear.setTitle("ELCARO BASE DE DATOS");
+        jd_Crear.setResizable(false);
 
         jLabel1.setText("Numero de campos");
 
@@ -465,52 +449,18 @@ public class ElCaro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ElCaro ©");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Crear");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images.png"))); // NOI18N
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 220, 70));
 
-        jButton2.setText("Modificar");
-
-        jButton3.setText("Eliminar");
-
-        jButton4.setText("Buscar");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(326, 326, 326))
-        );
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/data-1.jpg"))); // NOI18N
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 430));
 
         pack();
         setLocationRelativeTo(null);
@@ -1265,13 +1215,11 @@ public class ElCaro extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bg_ARLV_ManejoTabla;
     private javax.swing.ButtonGroup bg_ARLV_TablaIndices;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
