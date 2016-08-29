@@ -265,6 +265,7 @@ public class ElCaro extends javax.swing.JFrame {
 
             }
         ));
+        jt_ARLV_tabla.setCellSelectionEnabled(true);
         jt_ARLV_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jt_ARLV_tablaMouseClicked(evt);
@@ -437,13 +438,23 @@ public class ElCaro extends javax.swing.JFrame {
         });
         jpm_ARLF.add(jpm_borrar_registro_ARLF);
 
-        jpm_ARLV_Modificar.setText("jMenuItem1");
+        jpm_ARLV_Modificar.setText("Modificar");
         jpm_ARLV.add(jpm_ARLV_Modificar);
 
-        jpm_ARLV_Seleccionar.setText("jMenuItem2");
+        jpm_ARLV_Seleccionar.setText("Seleccionar");
+        jpm_ARLV_Seleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpm_ARLV_SeleccionarActionPerformed(evt);
+            }
+        });
         jpm_ARLV.add(jpm_ARLV_Seleccionar);
 
-        jpm_ARLV_Borrar_Registro.setText("jMenuItem3");
+        jpm_ARLV_Borrar_Registro.setText("Borrar Registro");
+        jpm_ARLV_Borrar_Registro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpm_ARLV_Borrar_RegistroActionPerformed(evt);
+            }
+        });
         jpm_ARLV.add(jpm_ARLV_Borrar_Registro);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -553,7 +564,7 @@ public class ElCaro extends javax.swing.JFrame {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         jt_ARLF_Tabla.setModel(Modelo);
     }//GEN-LAST:event_jb_Crear_Tabla_FijoMouseClicked
 
@@ -892,7 +903,7 @@ public class ElCaro extends javax.swing.JFrame {
                 Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        System.out.println(variable_variable.GetPosInicial());
         jt_ARLV_tabla.setModel(Modelo);
     }//GEN-LAST:event_jb_ARLV_CrearTablaMouseClicked
 
@@ -939,8 +950,11 @@ public class ElCaro extends javax.swing.JFrame {
                         Agregard(Row[i].toString(), RAF.length(), i);
 
                         RAF.seek(RAF.length());
-                        RAF.writeBytes("'");
-
+                        if (i== Campos.size()-1) {
+                            RAF.writeBytes("'");
+                        }
+                        
+                       
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
@@ -952,7 +966,11 @@ public class ElCaro extends javax.swing.JFrame {
                     }
 
                 }
+                
+                //System.out.println(variable_variable.GetTamañoCampo(0));
+                //System.out.println(variable_variable.GetTamañoCampo(1));
                 JOptionPane.showMessageDialog(jd_Crear, "Se Agrego un Registro");
+                
             } else {
                 JOptionPane.showMessageDialog(jd_Crear, "No se pudo agregar registro");
             }
@@ -996,6 +1014,52 @@ public class ElCaro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jd_Crear, "Elige un archivo de texto y una tabla de longitud Variable");
         }
     }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jpm_ARLV_SeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm_ARLV_SeleccionarActionPerformed
+        jt_ARLV_tabla.setColumnSelectionInterval(0, variable_variable.GetNumCampo() - 1);
+        jpm_ARLV_Borrar_Registro.setEnabled(true);
+    }//GEN-LAST:event_jpm_ARLV_SeleccionarActionPerformed
+
+    private void jpm_ARLV_Borrar_RegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpm_ARLV_Borrar_RegistroActionPerformed
+        if (jpm_ARLV_Borrar_Registro.isEnabled() && jt_ARLV_tabla.getValueAt(jt_ARLV_tabla.getSelectedRow(),
+                jt_ARLV_tabla.getSelectedColumn()) != " ") {
+            int seleccionado = jt_ARLV_tabla.getSelectedRow();
+            variable_variable.getBorrados().add(Integer.toString(seleccionado));
+            String direccion = "";
+            direccion = variable_variable.getDireccion().substring(0, variable_variable.getDireccion().length() - 4);
+            System.out.println(direccion);
+            String Borrado = "./borradosvv/" + direccion + "borr" + ".txt";
+            System.out.println(Borrado);
+            File Archivo_b = null;
+
+            Archivo_b = new File(Borrado);
+            RandomAccessFile RAF2 = null;
+            try {
+                RAF2 = new RandomAccessFile(Archivo_b, "rw");
+                RAF2.seek(0);
+                if ((char) RAF2.readByte() == '$') {
+                    RAF2.seek(RAF2.length() - 1);
+                    RAF2.writeBytes(Integer.toString(seleccionado) + ";");
+                } else {
+                    RAF2.seek(RAF2.length());
+                    RAF2.writeBytes(Integer.toString(seleccionado) + ";");
+                }
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            for (int i = 0; i < jt_ARLV_tabla.getColumnCount(); i++) {
+                jt_ARLV_tabla.setValueAt(" ", jt_ARLV_tabla.getSelectedRow(),
+                        jt_ARLV_tabla.getSelectedColumn() + i);
+            }
+        } else {
+            JOptionPane.showMessageDialog(jd_Crear, "Ese Registro Ya Ha Sido Borrado!");
+        }
+        jpm_ARLV_Borrar_Registro.setEnabled(false);
+    }//GEN-LAST:event_jpm_ARLV_Borrar_RegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1089,6 +1153,7 @@ public class ElCaro extends javax.swing.JFrame {
 
     public void Agregard(String Registro, long Lenght, int indice) {
         if (variable_variable.getManejo() == 'D') {
+            
             File Archivo = null;
             Archivo = new File(variable_variable.getDireccion());
             RandomAccessFile RAF = null;
@@ -1109,7 +1174,6 @@ public class ElCaro extends javax.swing.JFrame {
                 RandomAccessFile RAF = null;
                 try {
                     RAF = new RandomAccessFile(Archivo, "rw");
-                    System.out.println(variable_variable.GetNombreColumna(indice));
                     RAF.seek(Lenght);
                     RAF.writeBytes(variable_variable.GetNombreColumna(indice) + "=" + Registro);
 
@@ -1121,13 +1185,24 @@ public class ElCaro extends javax.swing.JFrame {
 
             } else {
                 if (variable_variable.getManejo() == 'I') {
+                    int t_campo = Registro.length();
+                    
                     File Archivo = null;
                     Archivo = new File(variable_variable.getDireccion());
                     RandomAccessFile RAF = null;
                     try {
                         RAF = new RandomAccessFile(Archivo, "rw");
                         RAF.seek(Lenght);
-                        RAF.writeBytes(Registro);
+                        if (Integer.toString(t_campo).length() == 3) {
+                            RAF.writeBytes(t_campo + Registro);
+                        }else{
+                            if (Integer.toString(t_campo).length() == 2) {
+                                RAF.writeBytes("0"+t_campo + Registro);
+                            }else{
+                                RAF.writeBytes("00"+t_campo + Registro);
+                            }
+                        }
+                        
 
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(ElCaro.class.getName()).log(Level.SEVERE, null, ex);
