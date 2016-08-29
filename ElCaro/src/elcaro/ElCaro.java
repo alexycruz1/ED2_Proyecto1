@@ -944,7 +944,7 @@ public class ElCaro extends javax.swing.JFrame {
                     try {
                         RAF = new RandomAccessFile(Archivo, "rw");
                         Agregard(Row[i].toString(), RAF.length());
-                        if (i == Campos.size()-1) {
+                        if (i == Campos.size()-1 && variable_variable.getManejo()=='D') {
                            RAF.seek(RAF.length());
                             RAF.writeBytes("'"); 
                         }
@@ -1112,10 +1112,10 @@ public class ElCaro extends javax.swing.JFrame {
             }
         } else {
             if (variable_variable.getManejo() == 'K') {
-
+                
             } else {
                 if (variable_variable.getManejo() == 'I') {
-
+                    
                 }
 
             }
